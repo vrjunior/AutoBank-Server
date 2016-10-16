@@ -1,7 +1,8 @@
 package repositories;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
@@ -14,29 +15,29 @@ public class ConnectionManager {
     private static final String user = "autobank_db";
     private static final String password = "+h]4c#sL<fBNk`s5b5\\94ykR";
 
-    private Connection conn = null;
+    private BasicDataSource ds;
 
     public ConnectionManager() {
-        try {
-            Class.forName(driverName);
-
-        } catch(ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        ds = new BasicDataSource();
+        ds.setDriverClassName(driverName);
+        ds.setUrl(connectionUrl);
+        ds.setUsername(user);
+        ds.setPassword(password);
     }
 
-    public Connection createConnection() {
+    public Connection getConnection() {
+        Connection conn = null;
         try {
-            conn = DriverManager.getConnection(connectionUrl, user, password);
-        }catch(SQLException e){
+            conn = ds.getConnection();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return conn;
     }
 
-    public void closeConnection() {
+    public void closeConnection(Connection conn) {
         try {
-            this.conn.close();
+            conn.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }

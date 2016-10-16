@@ -3,8 +3,8 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-#Intelijj Idea 
-./out
+#Intelij Idea 
+/out
 
 # Package Files #
 *.jar
