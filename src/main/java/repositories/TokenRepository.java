@@ -3,10 +3,7 @@ package repositories;
 import models.Token;
 
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by vrjunior on 15/10/16.
@@ -20,14 +17,14 @@ public class TokenRepository {
 
     private String generateTokenString(){
         SecureRandom random = new SecureRandom();
-        byte bytes[] = new byte[20];
+        byte bytes[] = new byte[52];
         random.nextBytes(bytes);
         return bytes.toString();
     }
 
     public Token createToken(Integer clientId) {
         Token tokenResult = new Token();
-        Integer id = null;
+        Long id = null;
         java.util.Date creationDate = new Date(System.currentTimeMillis());
         String strToken = this.generateTokenString();
         StringBuilder insertTokenSql = new StringBuilder();
@@ -36,11 +33,19 @@ public class TokenRepository {
         .append("VALUES(?, ?, ?)");
 
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement(insertTokenSql.toString());
+            PreparedStatement preparedStatement = conn.prepareStatement(insertTokenSql.toString(), Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, clientId);
             preparedStatement.setString(2, strToken);
             preparedStatement.setDate(3, new Date(creationDate.getTime()));
-            id =preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
+
+
+            //getting last id inserted
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if(rs.next()) {
+                id = rs.getLong(1);
+            }
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

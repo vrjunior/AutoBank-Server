@@ -1,6 +1,7 @@
 package servlets;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import models.Token;
 import repositories.ClientRepository;
 import repositories.ConnectionManager;
@@ -35,8 +36,8 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
         response.setHeader("Content-Type", "application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
-        out.print(gson.toJson(currentToken.getToken()));
-
+        out.print(gson.toJson(currentToken));
+        connectionManager.closeConnection(conn);
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {

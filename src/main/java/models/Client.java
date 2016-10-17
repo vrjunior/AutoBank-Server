@@ -6,14 +6,14 @@ import java.util.Date;
  * Created by vrjunior on 15/10/16.
  */
 public class Client {
-    private Integer id;
+    private Long id;
     private String name;
     private String email;
     private String cpf;
     private String password;
     private Date birthday;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -37,7 +37,7 @@ public class Client {
         return birthday;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

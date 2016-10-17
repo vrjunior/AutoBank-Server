@@ -21,7 +21,7 @@ public class ClientRepository {
     public Token performLogin(String emailOrCpf, String password) {
         StringBuilder sqlSelectClient = new StringBuilder();
         TokenRepository tokenRepository = new TokenRepository(this.conn);
-        sqlSelectClient.append("SELECT (ID, PASSWORD) FROM CLIENTS ")
+        sqlSelectClient.append("SELECT ID, PASSWORD FROM CLIENTS ")
                 .append("WHERE EMAIL = ? ")
                 .append("OR CPF = ? ");
 
@@ -29,12 +29,13 @@ public class ClientRepository {
             PreparedStatement preparedStatement = conn.prepareStatement(sqlSelectClient.toString());
             preparedStatement.setString(1, emailOrCpf);
             preparedStatement.setString(2, emailOrCpf);
-            ResultSet rs = preparedStatement.executeQuery(sqlSelectClient.toString());
-            if(rs.first()) {
+            ResultSet rs = preparedStatement.executeQuery();
+            if(rs.next()) {
                 if(password.equals(rs.getString("PASSWORD"))) {
                     return tokenRepository.createToken(rs.getInt("ID"));
                 }
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -6,11 +6,11 @@ import java.util.Date;
  * Created by vrjunior on 15/10/16.
  */
 public class Token {
-    private Integer id;
+    private Long id;
     private String token;
     private Date creationDate;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -22,7 +22,7 @@ public class Token {
         return creationDate;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
