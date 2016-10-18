@@ -9,7 +9,7 @@ import java.sql.Connection;
 /**
  * Created by valmir.massoni on 18/10/2016.
  */
-public abstract class TolkenAuthentication {
+public abstract class TolkenAuthentication extends javax.servlet.http.HttpServlet {
 
     private ClientRepository clientRepository;
     public static Connection conn;

@@ -18,7 +18,7 @@ import java.sql.Connection;
  * Created by vrjunior on 15/10/16.
  */
 @WebServlet(urlPatterns = "/LoginServlet")
-public class LoginServlet extends javax.servlet.http.HttpServlet {
+public class LoginServlet extends TolkenAuthentication {
 
     private Connection conn;
     private ClientRepository clientRepository;
