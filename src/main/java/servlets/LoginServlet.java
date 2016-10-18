@@ -1,12 +1,15 @@
 package servlets;
 
 import com.google.gson.Gson;
+
 import com.google.gson.JsonObject;
+import com.sun.media.jfxmedia.logging.Logger;
 import models.Token;
 import repositories.ClientRepository;
 import repositories.ConnectionManager;
 
 import javax.servlet.annotation.WebServlet;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -21,9 +24,15 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
     private ClientRepository clientRepository;
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        String emailOrCpf = request.getParameter("email");
-        String password = request.getParameter("password");
         Token currentToken;
+        String emailOrCpf;
+        String password;
+        
+        BufferedReader reader = request.getReader();
+        String rawData = reader.readLine();
+        JsonObject jsonObj = new Gson().fromJson(rawData, JsonObject.class);
+        emailOrCpf = jsonObj.get("email").getAsString();
+        password = jsonObj.get("password").getAsString();
 
         ConnectionManager connectionManager = new ConnectionManager();
         conn = connectionManager.getConnection();
