@@ -27,7 +27,7 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
         Token currentToken;
         String emailOrCpf;
         String password;
-        
+
         BufferedReader reader = request.getReader();
         String rawData = reader.readLine();
         JsonObject jsonObj = new Gson().fromJson(rawData, JsonObject.class);

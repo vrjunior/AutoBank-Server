@@ -14,6 +14,8 @@ import java.sql.SQLException;
 public class ClientRepository {
     private Connection conn;
 
+    public class NoAuthentication extends Exception {}
+
     public ClientRepository(Connection conn) {
         this.conn = conn;
     }
@@ -40,5 +42,33 @@ public class ClientRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Client getClientByTolken(String tolken) throws NoAuthentication {
+        StringBuilder sqlSelectClient =  new StringBuilder();
+        Client currentClient = new Client();
+        sqlSelectClient.append("SELECT ID, NAME, EMAIL, CPF, BIRTHDAY ")
+                .append("FROM CLIENTS")
+                .append("WHERE ID = (")
+                .append("SELECT ID FROM TOLKENS")
+                .append("WHERE TOLKEN = ?)");
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sqlSelectClient.toString());
+            preparedStatement.setString(1, tolken);
+            ResultSet rs = preparedStatement.executeQuery();
+            if(!rs.next()) {
+                throw new NoAuthentication();
+            }
+            currentClient.setId(rs.getLong("ID"));
+            currentClient.setName(rs.getString("NAME"));
+            currentClient.setEmail(rs.getString("EMAIL"));
+            currentClient.setCpf(rs.getString("CPF"));
+            currentClient.setBirthday(rs.getDate("BIRTHDAY"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return currentClient;
     }
 }
