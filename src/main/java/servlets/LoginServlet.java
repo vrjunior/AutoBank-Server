@@ -3,7 +3,6 @@ package servlets;
 import com.google.gson.Gson;
 
 import com.google.gson.JsonObject;
-import com.sun.media.jfxmedia.logging.Logger;
 import models.Token;
 import repositories.ClientRepository;
 import repositories.ConnectionManager;
@@ -18,7 +17,7 @@ import java.sql.Connection;
  * Created by vrjunior on 15/10/16.
  */
 @WebServlet(urlPatterns = "/LoginServlet")
-public class LoginServlet extends TolkenAuthentication {
+public class LoginServlet extends JsonServlet {
 
     private Connection conn;
     private ClientRepository clientRepository;
@@ -30,7 +29,7 @@ public class LoginServlet extends TolkenAuthentication {
 
         BufferedReader reader = request.getReader();
         String rawData = reader.readLine();
-        JsonObject jsonObj = new Gson().fromJson(rawData, JsonObject.class);
+        JsonObject jsonObj = this.parseToJson(rawData);
         emailOrCpf = jsonObj.get("email").getAsString();
         password = jsonObj.get("password").getAsString();
 
