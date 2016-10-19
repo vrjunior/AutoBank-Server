@@ -12,6 +12,7 @@ public class Client {
     private String cpf;
     private String password;
     private Date birthday;
+    private Card card;
 
     public Long getId() {
         return id;
@@ -37,6 +38,10 @@ public class Client {
         return birthday;
     }
 
+    public Card getCard() {
+        return card;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -60,4 +65,9 @@ public class Client {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
 }

@@ -22,7 +22,7 @@ public class TokenRepository {
         return bytes.toString();
     }
 
-    public Token createToken(Integer clientId) {
+    public Token createToken(Long clientId) {
         Token tokenResult = new Token();
         Long id = null;
         java.util.Date creationDate = new Date(System.currentTimeMillis());
@@ -34,7 +34,7 @@ public class TokenRepository {
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(insertTokenSql.toString(), Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, clientId);
+            preparedStatement.setLong(1, clientId);
             preparedStatement.setString(2, strToken);
             preparedStatement.setDate(3, new Date(creationDate.getTime()));
             preparedStatement.executeUpdate();

@@ -2,11 +2,13 @@ package repositories;
 
 import models.Client;
 import models.Token;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 /**
  * Created by vrjunior on 15/10/16.
@@ -23,6 +25,7 @@ public class ClientRepository {
     public Token performLogin(String emailOrCpf, String password) {
         StringBuilder sqlSelectClient = new StringBuilder();
         TokenRepository tokenRepository = new TokenRepository(this.conn);
+        Token tokenResult = null;
         sqlSelectClient.append("SELECT ID, PASSWORD FROM CLIENTS ")
                 .append("WHERE EMAIL = ? ")
                 .append("OR CPF = ? ");
@@ -33,15 +36,15 @@ public class ClientRepository {
             preparedStatement.setString(2, emailOrCpf);
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next()) {
-                if(password.equals(rs.getString("PASSWORD"))) {
-                    return tokenRepository.createToken(rs.getInt("ID"));
+                if(BCrypt.checkpw(password, rs.getString("PASSWORD"))) {
+                    tokenResult = tokenRepository.createToken(rs.getLong("ID"));
                 }
             }
             rs.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(e.getMessage());
         }
-        return null;
+        return tokenResult;
     }
 
     public Client getClientByTolken(String tolken) throws NoAuthentication {
