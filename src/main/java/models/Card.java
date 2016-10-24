@@ -1,5 +1,6 @@
 package models;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -11,8 +12,8 @@ public class Card {
     private String cvv;
     private Date emission;
     private Date validThrow;
-    private Float limit;
-    private Float interestRate;
+    private BigDecimal limit;
+    private BigDecimal interestRate;
     private Integer closingDay;
     private Boolean isActive;
 
@@ -36,11 +37,11 @@ public class Card {
         return validThrow;
     }
 
-    public Float getLimit() {
+    public BigDecimal getLimit() {
         return limit;
     }
 
-    public Float getInterestRate() {
+    public BigDecimal getInterestRate() {
         return interestRate;
     }
 
@@ -72,11 +73,11 @@ public class Card {
         this.validThrow = validThrow;
     }
 
-    public void setLimit(Float limit) {
+    public void setLimit(BigDecimal limit) {
         this.limit = limit;
     }
 
-    public void setInterestRate(Float interestRate) {
+    public void setInterestRate(BigDecimal interestRate) {
         this.interestRate = interestRate;
     }
 

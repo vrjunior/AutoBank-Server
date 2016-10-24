@@ -29,7 +29,15 @@ public class CardRepository {
             preparedStatement.setLong(1, clientId);
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next()) {
-                //TODO TERMINAR
+                currentCard.setId(rs.getLong("ID"));
+                currentCard.setCardNumber(rs.getString("NUM"));
+                currentCard.setCvv(rs.getString("CVV"));
+                currentCard.setEmission(rs.getDate("EMISSION"));
+                currentCard.setValidThrow(rs.getDate("VALID_THROW"));
+                currentCard.setLimit(rs.getBigDecimal("LIMIT_VALUE"));
+                currentCard.setInterestRate(rs.getBigDecimal("INREREST_RATE"));
+                currentCard.setClosingDay(rs.getInt("CLOSING_DAY"));
+                currentCard.setActive(rs.getBoolean("ACTIVE"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
