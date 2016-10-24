@@ -1,25 +1,27 @@
 package models;
 
+import java.math.BigDecimal;
+
 /**
  * Created by valmir.massoni on 19/10/2016.
  */
 public class ClosedBill extends Bill {
-    private Double totalValue;
-    private Double minValue;
+    private BigDecimal totalValue;
+    private BigDecimal minValue;
 
-    public Double getTotalValue() {
+    public BigDecimal getTotalValue() {
         return totalValue;
     }
 
-    public Double getMinValue() {
+    public BigDecimal getMinValue() {
         return minValue;
     }
 
-    public void setTotalValue(Double totalValue) {
+    public void setTotalValue(BigDecimal totalValue) {
         this.totalValue = totalValue;
     }
 
-    public void setMinValue(Double minValue) {
+    public void setMinValue(BigDecimal minValue) {
         this.minValue = minValue;
     }
 

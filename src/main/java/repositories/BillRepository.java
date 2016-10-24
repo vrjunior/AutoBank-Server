@@ -40,8 +40,8 @@ public class BillRepository {
                 currentClosedBill.setMonth(rs.getInt("MONTH"));
                 currentClosedBill.setYear(rs.getInt("YEAR"));
                 currentClosedBill.setPaymentDeadline(rs.getDate("PAYMENT_DEADLINE"));
-                currentClosedBill.setTotalValue(rs.getDouble("TOTAL_VALYE"));
-                currentClosedBill.setMinValue(rs.getDouble("MIN_VALUE"));
+                currentClosedBill.setTotalValue(rs.getBigDecimal("TOTAL_VALYE"));
+                currentClosedBill.setMinValue(rs.getBigDecimal("MIN_VALUE"));
 
                 closedBills.add(currentClosedBill);
             }
