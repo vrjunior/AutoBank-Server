@@ -31,7 +31,7 @@ public abstract class TokenAuthentication extends JsonServlet {
 
         try {
             currentClient = clientRepository.getClientByTolken(currentToken);
-            this.process(this.parseToJson(new BufferedReader(req.getReader()).readLine()), resp);
+            this.process(conn, this.parseToJson(new BufferedReader(req.getReader()).readLine()), resp);
         } catch (ClientRepository.NoAuthentication noAuthentication) {
             noAuthentication.printStackTrace();
             resp.setStatus(401);
@@ -39,7 +39,7 @@ public abstract class TokenAuthentication extends JsonServlet {
         connectionManager.closeConnection(conn);
     }
 
-    protected abstract void process(JsonObject jsonBody, HttpServletResponse resp);
+    protected abstract void process(Connection conn, JsonObject jsonBody, HttpServletResponse resp);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

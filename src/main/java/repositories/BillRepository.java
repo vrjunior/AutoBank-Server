@@ -15,11 +15,9 @@ import java.util.ArrayList;
  */
 public class BillRepository {
     private Connection conn;
-    private Client currentClient;
 
-    public BillRepository(Connection conn, Client currentClient) {
+    public BillRepository(Connection conn) {
         this.conn = conn;
-        this.currentClient = currentClient;
     }
 
     public ArrayList<ClosedBill> getClosedBills() {
@@ -31,7 +29,7 @@ public class BillRepository {
 
         try {
             PreparedStatement preparedStatement = this.conn.prepareStatement(sqlSelectClosedBillls.toString());
-            preparedStatement.setLong(1, this.currentClient.getId());
+           // preparedStatement.setLong(1, this.currentClient.getId());
             ResultSet rs = preparedStatement.executeQuery();
             ClosedBill currentClosedBill;
             while(rs.next()) {
