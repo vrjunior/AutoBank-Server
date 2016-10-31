@@ -15,16 +15,20 @@ import java.util.ArrayList;
  */
 public class BillRepository {
     private Connection conn;
+    Client currentClient;
 
-    public BillRepository(Connection conn) {
+    public BillRepository(Connection conn, Client currentClient) {
         this.conn = conn;
+        this.currentClient = currentClient;
     }
 
     public ArrayList<ClosedBill> getClosedBills() {
         ArrayList<ClosedBill> closedBills = new ArrayList<ClosedBill>();
         StringBuilder sqlSelectClosedBillls = new StringBuilder();
-        sqlSelectClosedBillls.append("SELECT ID, MONTH, YEAR, PAYMENT_DEADLINE, TOTAL_VALUE, MIN_VALUE ");
-            //TODO TERMINAR
+        sqlSelectClosedBillls.append("SELECT CLOSED_BILLS.ID, MONTH, YEAR, PAYMENT_DEADLINE, TOTAL_VALUE, MIN_VALUE ")
+                .append("FROM CLOSED_BILLS, BILLS ")
+                .append(" WHERE CLOSED_BILLS.ID = BILLS.ID ")
+                .append(" AND CLIENT_ID = " + this.currentClient.getId());
 
 
         try {
@@ -52,8 +56,11 @@ public class BillRepository {
     public ArrayList<Bill> getOpenBills() {
         ArrayList<Bill> openBills = new ArrayList<Bill>();
         StringBuilder sqlSelectOpenBills = new StringBuilder();
-        sqlSelectOpenBills.append("SELECT ID, MONTH, YEAR, PAYMENT_DEADLINE ");
-        //TODO TERMINAR
+        sqlSelectOpenBills.append("SELECT ID, MONTH, YEAR, PAYMENT_DEADLINE ")
+                .append("FROM BILLS ")
+                .append("WHERE CLIENT_ID = " + this.currentClient.getId())
+                .append("MINUS ")
+                .append("SELECT * FROM CLOSED BILLS ");
 
         return openBills;
     }

@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
-import models.Card;
 
 /**
  * Created by valmir.massoni on 18/10/2016.
@@ -23,18 +22,20 @@ public class BillsServlet extends TokenAuthentication{
         resp.setHeader("Content-Type", "application/json");
 
         CardRepository cardRepository = new CardRepository(conn);
-        BillRepository billRepository = new BillRepository(conn);
+        BillRepository billRepository = new BillRepository(conn, currentClient);
 
-        ArrayList<Card> cards = cardRepository.getCardByClientId(this.currentClient.getId());
+        //ArrayList<Card> cards = cardRepository.getCardByClientId(this.currentClient.getId());
         String json;
         Gson gson = new Gson();
 
         ArrayList<ClosedBill> closedBills = new ArrayList<ClosedBill>();
         ArrayList<Bill> bills = new ArrayList<Bill>();
-        for (Card c: cards) {
-            closedBills.addAll(billRepository.getClosedBills());
-            bills.addAll(billRepository.getOpenBills());
-        }
+
+        //getting bills
+        closedBills.addAll(billRepository.getClosedBills());
+        bills.addAll(billRepository.getOpenBills());
+
+        //parsing to json
         json = gson.toJson(closedBills, ClosedBill.class);
         json += gson.toJson(bills, Bill.class);
 
