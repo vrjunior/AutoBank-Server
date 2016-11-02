@@ -4,6 +4,7 @@ import models.Token;
 
 import java.security.SecureRandom;
 import java.sql.*;
+import java.util.Base64;
 
 /**
  * Created by vrjunior on 15/10/16.
@@ -17,9 +18,11 @@ public class TokenRepository {
 
     private String generateTokenString(){
         SecureRandom random = new SecureRandom();
-        byte bytes[] = new byte[52];
+        byte bytes[] = new byte[64];
         random.nextBytes(bytes);
-        return bytes.toString();
+
+        Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
+        return encoder.encodeToString(bytes);
     }
 
     public Token createToken(Long clientId) {

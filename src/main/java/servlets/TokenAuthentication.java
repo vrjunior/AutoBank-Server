@@ -31,7 +31,8 @@ public abstract class TokenAuthentication extends JsonServlet {
 
         try {
             currentClient = clientRepository.getClientByTolken(currentToken);
-            this.process(conn, this.parseToJson(new BufferedReader(req.getReader()).readLine()), resp);
+            JsonObject parsed = this.parseToJson(req.getInputStream());
+            this.process(conn, parsed, resp);
         } catch (ClientRepository.NoAuthentication noAuthentication) {
             noAuthentication.printStackTrace();
             resp.setStatus(401);

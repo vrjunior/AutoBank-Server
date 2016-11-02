@@ -7,9 +7,11 @@ import models.Token;
 import repositories.ClientRepository;
 import repositories.ConnectionManager;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.sql.Connection;
 
@@ -27,9 +29,7 @@ public class LoginServlet extends JsonServlet {
         String emailOrCpf;
         String password;
 
-        BufferedReader reader = request.getReader();
-        String rawData = reader.readLine();
-        JsonObject jsonObj = this.parseToJson(rawData);
+        JsonObject jsonObj = parseToJson(request.getInputStream());
         emailOrCpf = jsonObj.get("email").getAsString();
         password = jsonObj.get("password").getAsString();
 

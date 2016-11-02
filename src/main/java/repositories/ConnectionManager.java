@@ -15,20 +15,28 @@ public class ConnectionManager {
     private static final String user = "autobank_db";
     private static final String password = "+h]4c#sL<fBNk`s5b5\\94ykR";
 
-    private BasicDataSource ds;
+    private static BasicDataSource ds = null;
 
-    public ConnectionManager() {
-        ds = new BasicDataSource();
-        ds.setDriverClassName(driverName);
-        ds.setUrl(connectionUrl);
-        ds.setUsername(user);
-        ds.setPassword(password);
+    static {
+        getDataSource();
+    }
+
+    private static BasicDataSource getDataSource() {
+        if (ds == null) {
+            ds = new BasicDataSource();
+            ds.setDriverClassName(driverName);
+            ds.setUrl(connectionUrl);
+            ds.setUsername(user);
+            ds.setPassword(password);
+        }
+
+        return ds;
     }
 
     public Connection getConnection() {
         Connection conn = null;
         try {
-            conn = ds.getConnection();
+            conn = getDataSource().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -37,7 +45,6 @@ public class ConnectionManager {
 
     public void closeConnection(Connection conn) {
         try {
-
             conn.close();
         }catch (SQLException e) {
             e.printStackTrace();
