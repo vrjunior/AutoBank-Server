@@ -8,10 +8,8 @@ import repositories.ConnectionManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * Created by valmir.massoni on 18/10/2016.
@@ -23,7 +21,6 @@ public abstract class TokenAuthentication extends JsonServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
         ConnectionManager connectionManager = new ConnectionManager();
         Connection conn = connectionManager.getConnection();
         String currentToken = req.getHeader("Authorization");
@@ -44,7 +41,6 @@ public abstract class TokenAuthentication extends JsonServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
         resp.sendRedirect("etc/error.jsp");
     }
 

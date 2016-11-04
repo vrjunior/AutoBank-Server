@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class ClientRepository {
     private Connection conn;
 
-    public class NoAuthentication extends Exception {}
+    public static class NoAuthentication extends Exception {}
 
     public ClientRepository(Connection conn) {
         this.conn = conn;
@@ -51,10 +51,10 @@ public class ClientRepository {
         StringBuilder sqlSelectClient =  new StringBuilder();
         Client currentClient = new Client();
         sqlSelectClient.append("SELECT ID, NAME, EMAIL, CPF, BIRTHDAY ")
-                .append("FROM CLIENTS")
+                .append("FROM CLIENTS ")
                 .append("WHERE ID = (")
-                .append("SELECT ID FROM TOLKENS")
-                .append("WHERE TOLKEN = ?)");
+                .append("SELECT CLIENT_ID FROM TOKENS ")
+                .append("WHERE TOKEN = ?)");
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sqlSelectClient.toString());
