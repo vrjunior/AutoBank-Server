@@ -1,5 +1,6 @@
 package models;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -10,6 +11,7 @@ public class Bill {
     private Integer month;
     private Integer year;
     private Date paymentDeadline;
+    private BigDecimal parcialValue;
 
     public Long getId() {
         return id;
@@ -41,6 +43,14 @@ public class Bill {
 
     public void setPaymentDeadline(Date paymentDeadline) {
         this.paymentDeadline = paymentDeadline;
+    }
+
+    public BigDecimal getParcialValue() {
+        return parcialValue;
+    }
+
+    public void setParcialValue(BigDecimal parcialValue) {
+        this.parcialValue = parcialValue;
     }
 
     @Override
