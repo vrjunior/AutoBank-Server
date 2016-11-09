@@ -47,8 +47,8 @@ public class BillsServlet extends TokenAuthentication{
         bills.addAll(billRepository.getOpenBills());
 
         //parsing to json
-        json = gson.toJson(closedBills, ClosedBill.class);
-        json += gson.toJson(bills, Bill.class);
+        json = gson.toJson(closedBills);
+        json += gson.toJson(bills);
 
         try {
             PrintWriter out = resp.getWriter();

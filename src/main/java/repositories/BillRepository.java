@@ -56,43 +56,27 @@ public class BillRepository {
     public ArrayList<Bill> getOpenBills() {
         ArrayList<Bill> openBills = new ArrayList<Bill>();
         StringBuilder sqlSelectOpenBills = new StringBuilder();
-        sqlSelectOpenBills.append("SELECT ID, MONTH, YEAR, PAYMENT_DEADLINE, ")
-                .append("SUM(INSTALLMENT_VALUE) + SUM(INTEREST_RATE_VALUE) - SUM(REVERSAL_VALUE)  AS PARTIAL_VALUE ")
-                .append("FROM BILLS, INSTALLMENTS, INTEREST_RATES, REVERSALS ")
-                .append("WHERE CLIENT_ID = ? ")
-                .append("AND BILLS.ID = INSTALLMENTS.BILL_ID ")
-                .append("AND BILLS.ID = INTEREST_RATES.BILL_ID ")
-                .append("AND BILLS.ID = RERVERSALS.BILL_ID ")
+        sqlSelectOpenBills.append("SELECT BILLS.ID, BILLS.MONTH, BILLS.YEAR, BILLS.PAYMENT_DEADLINE, ( ")
 
+                .append("(COALESCE (SUM(INSTALLMENTS.INSTALLMENT_VALUE), 0))+ ")
+                .append("(COALESCE (SUM(INTEREST_RATES.INTEREST_RATE_VALUE), 0))- ")
+                .append("(COALESCE (SUM(REVERSALS.REVERSAL_VALUE), 0)) ) AS PARTIAL_VALUE ")
+                .append("FROM BILLS ")
+                .append("LEFT JOIN INSTALLMENTS ")
+                .append("ON BILLS.ID = INSTALLMENTS.BILL_ID ")
+                .append("LEFT JOIN INTEREST_RATES ")
+                .append("ON BILLS.ID = INTEREST_RATES.BILL_ID ")
+                .append("LEFT JOIN REVERSALS ")
+                .append("ON BILLS.ID = REVERSALS.BILL_ID ")
+                .append("WHERE BILLS.CLIENT_ID = ? ")
+                .append("AND BILLS.ID NOT IN ( ")
+                .append("SELECT CLOSED_BILLS.ID FROM CLOSED_BILLS ) ")
+                .append("GROUP BY BILLS.ID, BILLS.MONTH, BILLS.YEAR, BILLS.PAYMENT_DEADLINE ");
 
-                /*
-                SELECT BILLS.ID, BILLS.MONTH, BILLS.YEAR, BILLS.PAYMENT_DEADLINE,
-                (
-                    (COALESCE (SUM(INSTALLMENTS.INSTALLMENT_VALUE), 0))+
-                    (COALESCE (SUM(INTEREST_RATES.INTEREST_RATE_VALUE), 0))-
-                    (COALESCE (SUM(REVERSALS.REVERSAL_VALUE), 0))
-                ) AS PARTIAL_VALUE
-                FROM BILLS
-                LEFT JOIN INSTALLMENTS
-                  ON BILLS.ID = INSTALLMENTS.BILL_ID
-                LEFT JOIN INTEREST_RATES
-                  ON BILLS.ID = INTEREST_RATES.BILL_ID
-                LEFT JOIN REVERSALS
-                  ON BILLS.ID = REVERSALS.BILL_ID
-                WHERE BILLS.CLIENT_ID = 21
-                GROUP BY BILLS.ID, BILLS.MONTH, BILLS.YEAR, BILLS.PAYMENT_DEADLINE;
-                 */
-
-                .append("MINUS ")
-                .append("SELECT CLOSED_BILLS.ID, MONTH, YEAR, PAYMENT_DEADLINE ")
-                .append("FROM CLOSED_BILLS, BILLS ")
-                .append("WHERE CLOSED_BILLS.ID = BILLS.ID ")
-                .append("AND CLIENT_ID = ?");
 
         try {
             PreparedStatement preparedStatement = this.conn.prepareStatement(sqlSelectOpenBills.toString());
             preparedStatement.setLong(1, this.currentClient.getId());
-            preparedStatement.setLong(2, this.currentClient.getId());
             ResultSet rs = preparedStatement.executeQuery();
             Bill currentBill;
             while(rs.next()) {
