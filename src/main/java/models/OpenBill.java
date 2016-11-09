@@ -15,4 +15,23 @@ public class OpenBill extends Bill {
     public void setPartialValue(BigDecimal partialValue) {
         this.partialValue = partialValue;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        OpenBill openBill = (OpenBill) o;
+
+        return partialValue.equals(openBill.partialValue);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + partialValue.hashCode();
+        return result;
+    }
 }
