@@ -3,6 +3,7 @@ package repositories;
 import models.Bill;
 import models.Client;
 import models.ClosedBill;
+import models.OpenBill;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,8 +54,8 @@ public class BillRepository {
         return closedBills;
     }
 
-    public ArrayList<Bill> getOpenBills() {
-        ArrayList<Bill> openBills = new ArrayList<Bill>();
+    public ArrayList<OpenBill> getOpenBills() {
+        ArrayList<OpenBill> openBills = new ArrayList<OpenBill>();
         StringBuilder sqlSelectOpenBills = new StringBuilder();
         sqlSelectOpenBills.append("SELECT BILLS.ID, BILLS.MONTH, BILLS.YEAR, BILLS.PAYMENT_DEADLINE, ( ")
 
@@ -78,13 +79,14 @@ public class BillRepository {
             PreparedStatement preparedStatement = this.conn.prepareStatement(sqlSelectOpenBills.toString());
             preparedStatement.setLong(1, this.currentClient.getId());
             ResultSet rs = preparedStatement.executeQuery();
-            Bill currentBill;
+            OpenBill currentBill;
             while(rs.next()) {
-                currentBill = new ClosedBill();
+                currentBill = new OpenBill();
                 currentBill.setId(rs.getLong("ID"));
                 currentBill.setMonth(rs.getInt("MONTH"));
                 currentBill.setYear(rs.getInt("YEAR"));
                 currentBill.setPaymentDeadline(rs.getDate("PAYMENT_DEADLINE"));
+                currentBill.setPartialValue(rs.getBigDecimal("PARTIAL_VALUE"));
 
                 openBills.add(currentBill);
             }

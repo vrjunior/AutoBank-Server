@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by valmir.massoni on 18/10/2016.
  */
-public class Bill {
+public abstract class Bill {
     private Long id;
     private Integer month;
     private Integer year;

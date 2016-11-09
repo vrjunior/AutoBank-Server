@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import models.Bill;
 import models.ClosedBill;
+import models.OpenBill;
 import repositories.BillRepository;
 import repositories.CardRepository;
 
@@ -40,16 +41,15 @@ public class BillsServlet extends TokenAuthentication{
         Gson gson = new Gson();
 
         ArrayList<ClosedBill> closedBills = new ArrayList<ClosedBill>();
-        ArrayList<Bill> bills = new ArrayList<Bill>();
+        ArrayList<OpenBill> bills = new ArrayList<OpenBill>();
 
         //getting bills
         closedBills.addAll(billRepository.getClosedBills());
         bills.addAll(billRepository.getOpenBills());
 
         //parsing to json
-        json = gson.toJson(closedBills);
-        json += gson.toJson(bills);
-
+        json = "\"openBills\":{" + gson.toJson(bills) + "}";
+        json += "\"closedBills\":{" + gson.toJson(closedBills) + "}";
         try {
             PrintWriter out = resp.getWriter();
             out.println(json);
