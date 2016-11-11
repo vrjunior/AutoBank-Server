@@ -1,12 +1,9 @@
 package servlets;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import models.Bill;
 import models.ClosedBill;
 import models.OpenBill;
 import repositories.BillRepository;
-import repositories.CardRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,12 +30,10 @@ public class BillsServlet extends TokenAuthentication{
     protected void process(Connection conn, JsonObject jsonBody, HttpServletResponse resp) {
         resp.setHeader("Content-Type", "application/json");
 
-        CardRepository cardRepository = new CardRepository(conn);
         BillRepository billRepository = new BillRepository(conn, currentClient);
 
         //ArrayList<Card> cards = cardRepository.getCardByClientId(this.currentClient.getId());
         String json;
-        Gson gson = new Gson();
 
         ArrayList<ClosedBill> closedBills = new ArrayList<ClosedBill>();
         ArrayList<OpenBill> bills = new ArrayList<OpenBill>();
@@ -48,8 +43,8 @@ public class BillsServlet extends TokenAuthentication{
         bills.addAll(billRepository.getOpenBills());
 
         //parsing to json
-        json = "{\"openBills\":" + gson.toJson(bills) + ", ";
-        json += "\"closedBills\":" + gson.toJson(closedBills) + "}";
+        json = "{\"openBills\":" + this.getGson().toJson(bills) + ", ";
+        json += "\"closedBills\":" + this.getGson().toJson(closedBills) + "}";
         try {
             PrintWriter out = resp.getWriter();
             out.println(json);
