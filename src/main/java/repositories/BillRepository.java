@@ -74,8 +74,6 @@ public class BillRepository {
                 .append("SELECT CLOSED_BILLS.ID FROM CLOSED_BILLS ) ")
                 .append("GROUP BY BILLS.ID, BILLS.MONTH, BILLS.YEAR, BILLS.PAYMENT_DEADLINE ")
                 .append("ORDER BY BILLS.YEAR, BILLS.MONTH DESC ");
-
-
         try {
             PreparedStatement preparedStatement = this.conn.prepareStatement(sqlSelectOpenBills.toString());
             preparedStatement.setLong(1, this.currentClient.getId());
