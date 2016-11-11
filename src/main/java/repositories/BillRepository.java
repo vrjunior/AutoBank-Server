@@ -29,7 +29,8 @@ public class BillRepository {
         sqlSelectClosedBills.append("SELECT CLOSED_BILLS.ID, MONTH, YEAR, PAYMENT_DEADLINE, TOTAL_VALUE, MIN_VALUE ")
                 .append("FROM CLOSED_BILLS, BILLS ")
                 .append("WHERE CLOSED_BILLS.ID = BILLS.ID ")
-                .append("AND CLIENT_ID = ?");
+                .append("AND CLIENT_ID = ? ")
+                .append("ORDER BY YEAR, MONTH DESC ");
 
 
         try {
@@ -58,7 +59,6 @@ public class BillRepository {
         ArrayList<OpenBill> openBills = new ArrayList<OpenBill>();
         StringBuilder sqlSelectOpenBills = new StringBuilder();
         sqlSelectOpenBills.append("SELECT BILLS.ID, BILLS.MONTH, BILLS.YEAR, BILLS.PAYMENT_DEADLINE, ( ")
-
                 .append("(COALESCE (SUM(INSTALLMENTS.INSTALLMENT_VALUE), 0))+ ")
                 .append("(COALESCE (SUM(INTEREST_RATES.INTEREST_RATE_VALUE), 0))- ")
                 .append("(COALESCE (SUM(REVERSALS.REVERSAL_VALUE), 0)) ) AS PARTIAL_VALUE ")
@@ -72,7 +72,8 @@ public class BillRepository {
                 .append("WHERE BILLS.CLIENT_ID = ? ")
                 .append("AND BILLS.ID NOT IN ( ")
                 .append("SELECT CLOSED_BILLS.ID FROM CLOSED_BILLS ) ")
-                .append("GROUP BY BILLS.ID, BILLS.MONTH, BILLS.YEAR, BILLS.PAYMENT_DEADLINE ");
+                .append("GROUP BY BILLS.ID, BILLS.MONTH, BILLS.YEAR, BILLS.PAYMENT_DEADLINE ")
+                .append("ORDER BY BILLS.YEAR, BILLS.MONTH DESC ");
 
 
         try {
