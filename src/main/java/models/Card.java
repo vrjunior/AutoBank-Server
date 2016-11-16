@@ -16,6 +16,8 @@ public class Card {
     private BigDecimal interestRate;
     private Integer closingDay;
     private Boolean isActive;
+    private BigDecimal availableValue;
+    private BigDecimal usedValue;
 
     public Long getId() {
         return id;
@@ -53,6 +55,14 @@ public class Card {
         return isActive;
     }
 
+    public BigDecimal getAvailableValue() {
+        return availableValue;
+    }
+
+    public BigDecimal getUsedValue() {
+        return usedValue;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -87,6 +97,14 @@ public class Card {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public void setAvailableValue(BigDecimal availableValue) {
+        this.availableValue = availableValue;
+    }
+
+    public void setUsedValue(BigDecimal usedValue) {
+        this.usedValue = usedValue;
     }
 
     @Override
