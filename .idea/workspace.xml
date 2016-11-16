@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a5ac22e-bbf5-4c40-bd32-a2847bac1ec5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/models/FinantialStatement.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/models/Reversal.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/repositories/FinantialStatementRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/servlets/FinantialStatementsServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_dbcp2_Latest.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_dbcp2_Latest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_dbcp2_Release.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_dbcp2_Release.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/models/Purchase.java" afterPath="$PROJECT_DIR$/src/main/java/models/Purchase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/repositories/BillRepository.java" afterPath="$PROJECT_DIR$/src/main/java/repositories/BillRepository.java" />
-    </list>
+    <list default="true" id="8a5ac22e-bbf5-4c40-bd32-a2847bac1ec5" name="Default" comment="" />
     <ignored path="AutoBank-Server.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -927,15 +917,15 @@
       <workItem from="1478691900050" duration="7800000" />
       <workItem from="1478780053032" duration="2499000" />
       <workItem from="1478860094602" duration="8298000" />
-      <workItem from="1479292737140" duration="6573000" />
+      <workItem from="1479292737140" duration="6713000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107642000" />
+    <option name="totallyTimeSpent" value="107782000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="1" width="1918" height="1030" extended-state="0" />
+    <frame x="1" y="1" width="1918" height="1030" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
