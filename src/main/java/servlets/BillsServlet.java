@@ -3,6 +3,7 @@ package servlets;
 import com.google.gson.JsonObject;
 import models.ClosedBill;
 import models.OpenBill;
+import models.auxiliar.Bills;
 import repositories.BillRepository;
 
 import javax.servlet.ServletException;
@@ -32,22 +33,14 @@ public class BillsServlet extends TokenAuthentication{
 
         BillRepository billRepository = new BillRepository(conn, currentClient);
 
-        //ArrayList<Card> cards = cardRepository.getCardByClientId(this.currentClient.getId());
-        String json;
+        Bills bills = new Bills();
 
-        ArrayList<ClosedBill> closedBills = new ArrayList<ClosedBill>();
-        ArrayList<OpenBill> bills = new ArrayList<OpenBill>();
+        bills.setClosedBills(billRepository.getClosedBills());
+        bills.setOpenBills(billRepository.getOpenBills());
 
-        //getting bills
-        closedBills.addAll(billRepository.getClosedBills());
-        bills.addAll(billRepository.getOpenBills());
-
-        //parsing to json
-        json = "{\"openBills\":" + this.getGson().toJson(bills) + ", ";
-        json += "\"closedBills\":" + this.getGson().toJson(closedBills) + "}";
         try {
             PrintWriter out = resp.getWriter();
-            out.println(json);
+            out.println(getGson().toJson(bills, Bills.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
