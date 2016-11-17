@@ -19,13 +19,13 @@ public class FinantialStatementsServlet extends TokenAuthentication {
     protected void process(Connection conn, JsonObject jsonBody, HttpServletResponse resp) {
         Long billId = jsonBody.get("billId").getAsLong();
 
-        FinantialStatementRepository fsRepository = new FinantialStatementRepository(conn);
+        FinantialStatementRepository fsRepository = new FinantialStatementRepository(conn, this.currentClient, billId);
         FinantialStatements finantialStatements = new FinantialStatements();
 
-        finantialStatements.setPurchases(fsRepository.getPurchases(this.currentClient, billId));
-        finantialStatements.setInterestRates(fsRepository.getInsterestRates(this.currentClient, billId));
-        finantialStatements.setPayments(fsRepository.getPayments(this.currentClient, billId));
-        finantialStatements.setReversals(fsRepository.getReversals(this.currentClient, billId));
+        finantialStatements.setPurchases(fsRepository.getPurchases());
+        finantialStatements.setInterestRates(fsRepository.getInterestRates());
+        finantialStatements.setPayments(fsRepository.getPayments());
+        finantialStatements.setReversals(fsRepository.getReversals());
 
         resp.setHeader("Content-Type", "application/json");
 

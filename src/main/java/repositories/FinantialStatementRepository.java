@@ -14,13 +14,16 @@ import java.util.ArrayList;
  */
 public class FinantialStatementRepository {
     private Connection conn;
+    private Client client;
+    private Long billId;
 
-    public FinantialStatementRepository(Connection conn) {
+    public FinantialStatementRepository(Connection conn, Client client, Long billId) {
         this.conn = conn;
+        this.client = client;
+        this.billId = billId;
     }
 
-    public ArrayList<Purchase> getPurchases(Client client, Long billId) {
-        //TODO: CHECK IF THIS BILL BELONGS TO CLIENT BEFORE RUN THIS QUERY
+    public ArrayList<Purchase> getPurchases() {
         ArrayList<Purchase> purchases = new ArrayList<Purchase>();
         StringBuilder sqlSelect = new StringBuilder();
         sqlSelect.append("SELECT PURCHASES.ID, PURCHASES.PURCHASE_VALUE, ESTABLISHMENTS.NAME AS ESTABLISHMENT_NAME, ")
@@ -35,13 +38,17 @@ public class FinantialStatementRepository {
                 .append("ON ESTABLISHMENTS.ID = PURCHASES.ESTABLISHMENT_ID ")
                 .append("INNER JOIN CATEGORIES ")
                 .append("ON CATEGORIES.ID = ESTABLISHMENTS.CATEGORY_ID ")
+                .append("INNER JOIN BILLS ")
+                .append("ON BILLS.ID = INSTALLMENTS.BILL_ID ")
                 .append("WHERE INSTALLMENTS.BILL_ID = ? ")
+                .append("AND BILLS.CLIENT_ID = ? ")
                 .append("GROUP BY INSTALLMENTS.ID, INSTALLMENTS.INSTALLMENT_VALUE, PURCHASES.ID, PURCHASES.PURCHASE_VALUE, ")
                 .append("ESTABLISHMENTS.NAME, CATEGORIES.NAME, INSTALLMENTS.SEQUENTIAL ");
 
         try {
             PreparedStatement ps = this.conn.prepareStatement(sqlSelect.toString());
-            ps.setLong(1, billId);
+            ps.setLong(1, this.billId);
+            ps.setLong(2, this.client.getId());
             ResultSet rs = ps.executeQuery();
 
             Purchase currentPurchase;
@@ -64,19 +71,23 @@ public class FinantialStatementRepository {
         return purchases;
     }
 
-    public ArrayList<Payment> getPayments(Client client, Long billId) {
+    public ArrayList<Payment> getPayments() {
         ArrayList<Payment> payments = new ArrayList<Payment>();
         StringBuilder sqlPayments = new StringBuilder();
         sqlPayments.append("SELECT PAYMENTS.ID, PAYMENTS.PAYMENT_VALUE, FINANTIAL_STATEMENTS.PROCESS_DATE ")
                 .append("FROM PAYMENTS ")
                 .append("INNER JOIN FINANTIAL_STATEMENTS ")
                 .append("ON FINANTIAL_STATEMENTS.ID = PAYMENTS.ID ")
+                .append("INNER JOIN BILLS ")
+                .append("ON BILLS.ID = PAYMENTS.BILL_ID ")
                 .append("WHERE BILL_ID = ? ")
+                .append("AND BILLS.CLIENT_ID = ? ")
                 .append("ORDER BY FINANTIAL_STATEMENTS.PROCESS_DATE DESC ");
 
         try {
             PreparedStatement ps = this.conn.prepareStatement(sqlPayments.toString());
-            ps.setLong(1, billId);
+            ps.setLong(1, this.billId);
+            ps.setLong(2, this.client.getId());
             ResultSet rs = ps.executeQuery();
             Payment currentPayment;
             while(rs.next()) {
@@ -94,19 +105,23 @@ public class FinantialStatementRepository {
         return payments;
     }
 
-    public ArrayList<Reversal> getReversals(Client client, Long billId) {
+    public ArrayList<Reversal> getReversals() {
         ArrayList<Reversal> reversals = new ArrayList<Reversal>();
         StringBuilder sqlReversals = new StringBuilder();
         sqlReversals.append("SELECT REVERSALS.ID, REVERSALS.REVERSAL_VALUE, FINANTIAL_STATEMENTS.PROCESS_DATE ")
                 .append("FROM REVERSALS ")
                 .append("INNER JOIN FINANTIAL_STATEMENTS ")
                 .append("ON FINANTIAL_STATEMENTS.ID = REVERSALS.ID ")
+                .append("INNER JOIN BILLS ")
+                .append("ON BILLS.ID = REVERSALS.BILL_ID ")
                 .append("WHERE BILL_ID = ? ")
+                .append("AND BILLS.CLIENT_ID = ? ")
                 .append("ORDER BY FINANTIAL_STATEMENTS.PROCESS_DATE DESC ");
 
         try {
             PreparedStatement ps = this.conn.prepareStatement(sqlReversals.toString());
-            ps.setLong(1, billId);
+            ps.setLong(1, this.billId);
+            ps.setLong(2, this.client.getId());
             ResultSet rs = ps.executeQuery();
             Reversal currentReversal;
             while(rs.next()) {
@@ -124,19 +139,23 @@ public class FinantialStatementRepository {
         return reversals;
     }
 
-    public ArrayList<InterestRate> getInsterestRates(Client client, Long billId) {
+    public ArrayList<InterestRate> getInterestRates() {
         ArrayList<InterestRate> interestRates = new ArrayList<InterestRate>();
         StringBuilder sqlInterestRates = new StringBuilder();
         sqlInterestRates.append("SELECT INTEREST_RATES.ID, INTEREST_RATES.INTEREST_RATE_VALUE, FINANTIAL_STATEMENTS.PROCESS_DATE ")
                 .append("FROM INTEREST_RATES ")
                 .append("INNER JOIN FINANTIAL_STATEMENTS ")
                 .append("ON FINANTIAL_STATEMENTS.ID = INTEREST_RATES.ID ")
+                .append("INNER JOIN BILLS ")
+                .append("ON BILLS.ID = INTEREST_RATES.BILL_ID ")
                 .append("WHERE BILL_ID = ? ")
+                .append("AND BILLS.CLIENT_ID = ? ")
                 .append("ORDER BY FINANTIAL_STATEMENTS.PROCESS_DATE DESC ");
 
         try {
             PreparedStatement ps = this.conn.prepareStatement(sqlInterestRates.toString());
-            ps.setLong(1, billId);
+            ps.setLong(1, this.billId);
+            ps.setLong(2, this.client.getId());
             ResultSet rs = ps.executeQuery();
             InterestRate currentInterestRate;
             while(rs.next()) {
