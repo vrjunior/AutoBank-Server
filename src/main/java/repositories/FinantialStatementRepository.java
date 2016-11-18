@@ -27,9 +27,12 @@ public class FinantialStatementRepository {
         ArrayList<Purchase> purchases = new ArrayList<Purchase>();
         StringBuilder sqlSelect = new StringBuilder();
         sqlSelect.append("SELECT PURCHASES.ID, PURCHASES.PURCHASE_VALUE, ESTABLISHMENTS.NAME AS ESTABLISHMENT_NAME, ")
+                .append("FINANTIAL_STATEMENTS.PROCESS_DATE AS PROCESS_DATE, ")
                 .append("CATEGORIES.NAME AS CATEGORY, INSTALLMENTS.INSTALLMENT_VALUE, INSTALLMENTS.SEQUENTIAL, ")
                 .append("COUNT(ALL_INSTALLMENTS.ID) AS AMOUNT_INSTALLMENTS ")
                 .append("FROM INSTALLMENTS ")
+                .append("INNER JOIN FINANTIAL_STATEMENTS ")
+                .append("ON FINANTIAL_STATEMENTS.ID = PURCHASES.ID ")
                 .append("INNER JOIN PURCHASES ")
                 .append("ON INSTALLMENTS.PURCHASE_ID = PURCHASES.ID ")
                 .append("INNER JOIN INSTALLMENTS ALL_INSTALLMENTS ")
@@ -61,6 +64,7 @@ public class FinantialStatementRepository {
                 currentPurchase.setInstallmentValue(rs.getBigDecimal("INSTALLMENT_VALUE"));
                 currentPurchase.setInstallmentSequential(rs.getInt("SEQUENTIAL"));
                 currentPurchase.setInstallmentsAmount(rs.getInt("AMOUNT_INSTALLMENTS"));
+                currentPurchase.setProcessDate(rs.getDate("PROCESS_DATE"));
 
                 purchases.add(currentPurchase);
             }
