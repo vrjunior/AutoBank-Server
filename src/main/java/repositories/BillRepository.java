@@ -26,10 +26,14 @@ public class BillRepository {
     public ArrayList<ClosedBill> getClosedBills() {
         ArrayList<ClosedBill> closedBills = new ArrayList<ClosedBill>();
         StringBuilder sqlSelectClosedBills = new StringBuilder();
-        sqlSelectClosedBills.append("SELECT CLOSED_BILLS.ID, MONTH, YEAR, PAYMENT_DEADLINE, TOTAL_VALUE, MIN_VALUE ")
+        sqlSelectClosedBills.append("SELECT CLOSED_BILLS.ID, MONTH, YEAR, PAYMENT_DEADLINE, TOTAL_VALUE, MIN_VALUE, ")
+                .append("(COALESCE(SUM(PAYMENTS.PAYMENT_VALUE), 0)) AS PAID_VALUE ")
                 .append("FROM CLOSED_BILLS, BILLS ")
+                .append("INNER JOIN PAYMENTS ")
+                .append("ON PAYMENTS.BILL_ID = BILLS.ID ")
                 .append("WHERE CLOSED_BILLS.ID = BILLS.ID ")
                 .append("AND CLIENT_ID = ? ")
+                .append("GROUP BY CLOSED_BILLS.ID, MONTH, YEAR, PAYMENT_DEADLINE, TOTAL_VALUE, MIN_VALUE ")
                 .append("ORDER BY YEAR, MONTH DESC ");
 
 
@@ -46,6 +50,7 @@ public class BillRepository {
                 currentClosedBill.setPaymentDeadline(rs.getDate("PAYMENT_DEADLINE"));
                 currentClosedBill.setTotalValue(rs.getBigDecimal("TOTAL_VALUE"));
                 currentClosedBill.setMinValue(rs.getBigDecimal("MIN_VALUE"));
+                currentClosedBill.setPaidValue(rs.getBigDecimal("PAID_VALUE"));
 
                 closedBills.add(currentClosedBill);
             }

@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 public class ClosedBill extends Bill {
     private BigDecimal totalValue;
     private BigDecimal minValue;
+    private BigDecimal paidValue;
 
     public BigDecimal getTotalValue() {
         return totalValue;
@@ -17,12 +18,20 @@ public class ClosedBill extends Bill {
         return minValue;
     }
 
+    public BigDecimal paidValue() {
+        return paidValue;
+    }
+
     public void setTotalValue(BigDecimal totalValue) {
         this.totalValue = totalValue;
     }
 
     public void setMinValue(BigDecimal minValue) {
         this.minValue = minValue;
+    }
+
+    public void setPaidValue(BigDecimal paidValue) {
+        this.paidValue = paidValue;
     }
 
     @Override
