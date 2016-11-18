@@ -1,6 +1,7 @@
 package repositories;
 
 import models.Card;
+import models.Client;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,5 +49,55 @@ public class CardRepository {
         }
 
         return cards;
+    }
+
+    public boolean informCardLost(Client client, Long cardId, String clientComment) {
+        StringBuilder sqlInsertLost = new StringBuilder();
+        StringBuilder sqlDesactiveCard = new StringBuilder();
+        boolean result;
+
+        sqlInsertLost.append("INSERT INTO CARDS_FLAGGED_LOST_STOLEN(CARD_ID, CLIENT_COMMENT) ")
+                .append("VALUES(( SELECT ID FROM CARDS ")
+                .append("WHERE CLIENT_ID = ? ")
+                .append("AND ID = ? ), ? ) ");
+
+        sqlDesactiveCard.append("UPDATE CARDS ")
+                .append("SET ACTIVE = 0 ")
+                .append("WHERE ID = ? ")
+                .append("AND CLIENT_ID = ? ");
+
+        try {
+            this.conn.setAutoCommit(false); //Begin transaction
+
+            PreparedStatement ps = conn.prepareStatement(sqlInsertLost.toString());
+            ps.setLong(1, client.getId());
+            ps.setLong(2, cardId);
+            ps.setString(3, clientComment);
+            ps.executeUpdate();
+
+            ps = conn.prepareStatement(sqlDesactiveCard.toString());
+            ps.setLong(1, cardId);
+            ps.setLong(2, client.getId());
+            ps.executeUpdate();
+
+            this.conn.commit(); //commit if the runs is okay
+            result = true;
+        }catch(Exception e) {
+            try {
+                this.conn.rollback(); //if something went wrong, a rollback is executed
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            result = false;
+        }
+        finally {
+            try {
+                this.conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
     }
 }
