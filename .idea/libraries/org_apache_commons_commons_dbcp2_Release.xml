@@ -62,6 +62,9 @@
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/commons-dbcp2-2.1.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/commons-pool2-2.4.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/commons-dbcp2-2.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/commons-pool2-2.4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/commons-logging-1.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

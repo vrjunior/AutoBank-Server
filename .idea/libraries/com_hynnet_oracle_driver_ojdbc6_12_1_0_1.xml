@@ -4,6 +4,8 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/oracle-driver-ojdbc6-12.1.0.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/slf4j-api-1.7.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/oracle-driver-ojdbc6-12.1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/slf4j-api-1.7.7.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
