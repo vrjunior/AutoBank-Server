@@ -2,7 +2,6 @@ package repositories;
 
 import models.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
