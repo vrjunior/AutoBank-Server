@@ -30,10 +30,12 @@ public class BillRepository {
                 .append("(COALESCE(SUM(PAYMENTS.PAYMENT_VALUE), 0)) AS PAID_VALUE ")
                 .append("FROM CLOSED_BILLS, BILLS ")
 
-                .append("LEFT JOIN PAYMENTS ")
-                .append("ON PAYMENT_OF.PAYMENT_ID = PAYMENTS.ID ")
                 .append("LEFT JOIN PAYMENT_OF ")
                 .append("ON PAYMENT_OF.BILL_ID = BILLS.ID ")
+
+                .append("LEFT JOIN PAYMENTS ")
+                .append("ON PAYMENT_OF.PAYMENT_ID = PAYMENTS.ID ")
+
 
                 .append("WHERE CLOSED_BILLS.ID = BILLS.ID ")
                 .append("AND CLIENT_ID = ? ")

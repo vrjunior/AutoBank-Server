@@ -38,5 +38,6 @@
     <orderEntry type="library" name="com.google.code.gson:gson:2.7" level="project" />
     <orderEntry type="library" name="Java EE 6-Java EE 6 (2)" level="project" />
     <orderEntry type="library" name="org.mindrot:jbcrypt:0.3m" level="project" />
+    <orderEntry type="library" name="com.hynnet:oracle-driver-ojdbc6:12.1.0.1" level="project" />
   </component>
 </module>
