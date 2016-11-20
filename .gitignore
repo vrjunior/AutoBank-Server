@@ -26,7 +26,18 @@
 
 ## File-based project format:
 *.iws
+*.class
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
 *.jar
+*.war
+*.ear
 
 ## Plugin-specific files:
 
