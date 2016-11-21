@@ -42,12 +42,12 @@ public class ClientRepository {
             }
             rs.close();
         } catch (SQLException e) {
-            Logger.getLogger(e.getMessage());
+            e.printStackTrace();
         }
         return tokenResult;
     }
 
-    public Client getClientByTolken(String tolken) throws NoAuthentication {
+    public Client getClientByToken(String token) throws NoAuthentication, SQLException {
         StringBuilder sqlSelectClient =  new StringBuilder();
         Client currentClient = new Client();
         sqlSelectClient.append("SELECT ID, NAME, EMAIL, CPF, BIRTHDAY ")
@@ -56,22 +56,18 @@ public class ClientRepository {
                 .append("SELECT CLIENT_ID FROM TOKENS ")
                 .append("WHERE TOKEN = ?)");
 
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(sqlSelectClient.toString());
-            preparedStatement.setString(1, tolken);
-            ResultSet rs = preparedStatement.executeQuery();
-            if(!rs.next()) {
-                throw new NoAuthentication();
-            }
-            currentClient.setId(rs.getLong("ID"));
-            currentClient.setName(rs.getString("NAME"));
-            currentClient.setEmail(rs.getString("EMAIL"));
-            currentClient.setCpf(rs.getString("CPF"));
-            currentClient.setBirthday(rs.getDate("BIRTHDAY"));
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        PreparedStatement preparedStatement = conn.prepareStatement(sqlSelectClient.toString());
+        preparedStatement.setString(1, token);
+        ResultSet rs = preparedStatement.executeQuery();
+        if(!rs.next()) {
+            throw new NoAuthentication();
         }
+        currentClient.setId(rs.getLong("ID"));
+        currentClient.setName(rs.getString("NAME"));
+        currentClient.setEmail(rs.getString("EMAIL"));
+        currentClient.setCpf(rs.getString("CPF"));
+        currentClient.setBirthday(rs.getDate("BIRTHDAY"));
+
         return currentClient;
     }
 }

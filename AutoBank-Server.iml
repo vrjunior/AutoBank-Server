@@ -9,11 +9,14 @@
         <webroots>
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
-        <sourceRoots />
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+        </sourceRoots>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -25,19 +28,9 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="GlassFish 4.1.1" level="application_server_libraries" />
-    <orderEntry type="library" name="org.apache.commons:commons-dbcp2:Release" level="project" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/web/WEB-INF/lib/ojdbc7.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="com.google.code.gson:gson:2.7" level="project" />
-    <orderEntry type="library" name="Java EE 6-Java EE 6 (2)" level="project" />
-    <orderEntry type="library" name="org.mindrot:jbcrypt:0.3m" level="project" />
-    <orderEntry type="library" name="com.hynnet:oracle-driver-ojdbc6:12.1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="org.apache.commons:commons-dbcp2:Release" level="project" />
+    <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.7" level="project" />
+    <orderEntry type="library" exported="" name="org.mindrot:jbcrypt:0.3m" level="project" />
+    <orderEntry type="library" exported="" name="com.hynnet:oracle-driver-ojdbc6:12.1.0.1" level="project" />
   </component>
 </module>

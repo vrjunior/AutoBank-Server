@@ -2,13 +2,16 @@ package models;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import other.gson.Exclude;
 
 /**
  * Created by valmir.massoni on 19/10/2016.
  */
 public class Card {
     private Long id;
+    @Exclude
     private String cardNumber;
+    @Exclude
     private String cvv;
     private Date emission;
     private Date validThrow;
