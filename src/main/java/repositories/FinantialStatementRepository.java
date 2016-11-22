@@ -30,10 +30,10 @@ public class FinantialStatementRepository {
                 .append("CATEGORIES.NAME AS CATEGORY, INSTALLMENTS.INSTALLMENT_VALUE, INSTALLMENTS.SEQUENTIAL, ")
                 .append("COUNT(ALL_INSTALLMENTS.ID) AS AMOUNT_INSTALLMENTS ")
                 .append("FROM INSTALLMENTS ")
-                .append("INNER JOIN FINANTIAL_STATEMENTS ")
-                .append("ON FINANTIAL_STATEMENTS.ID = PURCHASES.ID ")
                 .append("INNER JOIN PURCHASES ")
                 .append("ON INSTALLMENTS.PURCHASE_ID = PURCHASES.ID ")
+                .append("INNER JOIN FINANTIAL_STATEMENTS ")
+                .append("ON FINANTIAL_STATEMENTS.ID = PURCHASES.ID ")
                 .append("INNER JOIN INSTALLMENTS ALL_INSTALLMENTS ")
                 .append("ON ALL_INSTALLMENTS.PURCHASE_ID = PURCHASES.ID ")
                 .append("INNER JOIN ESTABLISHMENTS ")
@@ -44,8 +44,8 @@ public class FinantialStatementRepository {
                 .append("ON BILLS.ID = INSTALLMENTS.BILL_ID ")
                 .append("WHERE INSTALLMENTS.BILL_ID = ? ")
                 .append("AND BILLS.CLIENT_ID = ? ")
-                .append("GROUP BY INSTALLMENTS.ID, INSTALLMENTS.INSTALLMENT_VALUE, PURCHASES.ID, PURCHASES.PURCHASE_VALUE, ")
-                .append("ESTABLISHMENTS.NAME, CATEGORIES.NAME, INSTALLMENTS.SEQUENTIAL ");
+                .append("GROUP BY PURCHASES.ID, PURCHASES.PURCHASE_VALUE, ESTABLISHMENTS.NAME, PROCESS_DATE, ")
+                .append("INSTALLMENTS.INSTALLMENT_VALUE, CATEGORIES.NAME, INSTALLMENTS.SEQUENTIAL ");
 
         try {
             PreparedStatement ps = this.conn.prepareStatement(sqlSelect.toString());
