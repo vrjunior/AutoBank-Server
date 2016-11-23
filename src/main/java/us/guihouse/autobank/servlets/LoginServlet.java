@@ -15,7 +15,7 @@ import java.sql.Connection;
 /**
  * Created by vrjunior on 15/10/16.
  */
-@WebServlet(urlPatterns = "/LoginServlet")
+@WebServlet(urlPatterns = "/api/login")
 public class LoginServlet extends JsonServlet {
 
     private Connection conn;

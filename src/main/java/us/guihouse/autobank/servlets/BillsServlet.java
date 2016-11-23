@@ -15,7 +15,7 @@ import java.sql.Connection;
 /**
  * Created by valmir.massoni on 18/10/2016.
  */
-@WebServlet(urlPatterns = "/BillsServlet")
+@WebServlet(urlPatterns = "/api/bills")
 public class BillsServlet extends TokenAuthentication{
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

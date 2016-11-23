@@ -14,7 +14,7 @@ import java.sql.SQLException;
 /**
  * Created by valmir.massoni on 18/10/2016.
  */
-@WebServlet(urlPatterns = "/Card")
+@WebServlet(urlPatterns = "/api/card")
 public class CardServlet extends TokenAuthentication {
 
     protected void process(Connection conn, JsonObject jsonBody, HttpServletResponse resp) throws SQLException {

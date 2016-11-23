@@ -13,7 +13,7 @@ import java.sql.Connection;
 /**
  * Created by valmir.massoni on 16/11/2016.
  */
-@WebServlet(urlPatterns = "/FinantialStatements")
+@WebServlet(urlPatterns = "/api/finantial-statements")
 public class FinantialStatementsServlet extends TokenAuthentication {
     protected void process(Connection conn, JsonObject jsonBody, HttpServletResponse resp) {
         Long billId = jsonBody.get("billId").getAsLong();

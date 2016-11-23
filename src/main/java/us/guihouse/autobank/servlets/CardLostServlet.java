@@ -12,7 +12,7 @@ import java.sql.Connection;
 /**
  * Created by valmir.massoni on 18/11/2016.
  */
-@WebServlet(urlPatterns = "/CardLostOrStolen")
+@WebServlet(urlPatterns = "/api/card-lost-or-stolen")
 public class CardLostServlet extends TokenAuthentication {
 
     protected void process(Connection conn, JsonObject jsonBody, HttpServletResponse resp) {

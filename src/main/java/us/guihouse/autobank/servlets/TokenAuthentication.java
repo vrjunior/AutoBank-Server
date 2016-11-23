@@ -48,7 +48,7 @@ public abstract class TokenAuthentication extends JsonServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("etc/error.jsp");
+        resp.sendRedirect("/AutoBank/etc/error.jsp");
     }
 
 }
