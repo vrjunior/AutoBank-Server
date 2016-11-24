@@ -36,7 +36,8 @@ public class TokenRepository {
         .append("VALUES(?, ?, ?)");
 
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement(insertTokenSql.toString(), Statement.RETURN_GENERATED_KEYS);
+            String generatedColumns[] = { "ID" };
+            PreparedStatement preparedStatement = conn.prepareStatement(insertTokenSql.toString(), generatedColumns);
             preparedStatement.setLong(1, clientId);
             preparedStatement.setString(2, strToken);
             preparedStatement.setDate(3, new Date(creationDate.getTime()));

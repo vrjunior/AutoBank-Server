@@ -14,7 +14,7 @@
           <element id="library" level="project" name="Maven: org.mindrot:jbcrypt:0.3m" />
           <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.7" />
-          <element id="library" level="project" name="Maven: com.hynnet:oracle-driver-ojdbc:12.1.0.2" />
+          <element id="library" level="project" name="Maven: com.hynnet:oracle-driver-ojdbc6:12.1.0.1" />
         </element>
       </element>
     </root>
