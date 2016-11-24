@@ -24,6 +24,11 @@ public class CardServlet extends TokenAuthentication {
         Card card = cardRepository.getActiveCardByClientId(currentClient.getId());
 
         try {
+            if (card == null) {
+                resp.sendError(404);
+                return;
+            }
+
             Writer out = resp.getWriter();
             getGson().toJson(card, out);
             out.close();

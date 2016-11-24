@@ -23,11 +23,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="AutoBank" />
         <module name="AutoBank-Server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="AutoBank-Server" target="1.8" />
+      <module name="AutoBank" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

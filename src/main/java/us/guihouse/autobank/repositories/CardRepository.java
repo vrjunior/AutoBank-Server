@@ -33,7 +33,8 @@ public class CardRepository {
     }
 
     public Card getActiveCardByClientId(Long clientId) throws SQLException {
-        Card currentCard = new Card();
+        Card currentCard = null;
+
         StringBuilder sqlSelectCard = new StringBuilder();
         sqlSelectCard.append("SELECT ID, NUM, CVV, EMISSION, VALID_THROW, LIMIT_VALUE, INTEREST_RATE, CLOSING_DAY, ACTIVE, ")
                 .append("(").append(USED_VALUE_QUERY).append(") AS USED_VALUE ")
@@ -47,6 +48,7 @@ public class CardRepository {
         ResultSet rs = preparedStatement.executeQuery();
 
         if(rs.next()) {
+            currentCard = new Card();
             BigDecimal usedValue = rs.getBigDecimal("USED_VALUE");
             BigDecimal limit = rs.getBigDecimal("LIMIT_VALUE");
 

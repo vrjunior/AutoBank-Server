@@ -25,12 +25,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="GlassFish 4.1.1" level="application_server_libraries" />
     <orderEntry type="library" exported="" name="org.apache.commons:commons-dbcp2:Release" level="project" />
     <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.7" level="project" />
     <orderEntry type="library" exported="" name="org.mindrot:jbcrypt:0.3m" level="project" />
-    <orderEntry type="library" exported="" name="com.hynnet:oracle-driver-ojdbc6:12.1.0.1" level="project" />
+    <orderEntry type="library" name="com.hynnet:oracle-driver-ojdbc:12.1.0.2" level="project" />
   </component>
 </module>

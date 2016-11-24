@@ -2,10 +2,10 @@
   <artifact type="exploded-war" name="AutoBank">
     <output-path>$PROJECT_DIR$/out/artifacts/AutoBank</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="AutoBank-Server/web/Web" />
+      <element id="javaee-facet-resources" facet="AutoBank/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="AutoBank-Server" />
+          <element id="module-output" name="AutoBank" />
         </element>
       </element>
     </root>
