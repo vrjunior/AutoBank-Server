@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+body {
+    background-color: #224687;
+    display: flex;
+    align-items: center;
+}
+
+section#loginSection {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    background-color: #FFFFFF;
+    width: 40%;
+    min-width: 400px;
+    height: auto;
+    min-height: 400px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+section#loginSection form {
+    vertical-align: middle;
+    margin: auto;
+}
+
+div.mdl-textfield, div.mdl-button {
+    display: block;
+    margin: auto;
+}
