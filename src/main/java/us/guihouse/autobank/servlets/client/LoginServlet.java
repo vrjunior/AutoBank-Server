@@ -1,4 +1,4 @@
-package us.guihouse.autobank.servlets;
+package us.guihouse.autobank.servlets.client;
 
 import com.google.gson.Gson;
 
