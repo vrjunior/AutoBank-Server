@@ -1,3 +1,5 @@
+<%@ page import="us.guihouse.autobank.repositories.ConnectionManager" %>
+<%@ page import="us.guihouse.autobank.repositories.CollaboratorRepository" %>
 <%--
   Created by IntelliJ IDEA.
   User: vrjunior
@@ -7,7 +9,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%
-  session = request.getSession();
+    session = request.getSession();
+    Long idCollaborator = (Long) session.getAttribute("collaborator_id");
+    if(idCollaborator != null) {
+        ConnectionManager connectionManager = new ConnectionManager();
+        CollaboratorRepository collaboratorRepository = new CollaboratorRepository(connectionManager.getConnection());
+        if(collaboratorRepository.validateCollaboratorById(idCollaborator)) {
+            //redirect
+        }
+    }
 
 %>
 <html>
