@@ -1,7 +1,7 @@
 package us.guihouse.autobank.repositories;
 
-import us.guihouse.autobank.models.Client;
-import us.guihouse.autobank.models.Token;
+import us.guihouse.autobank.models.client.Client;
+import us.guihouse.autobank.models.client.Token;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;

@@ -1,5 +1,6 @@
 <%@ page import="us.guihouse.autobank.repositories.ConnectionManager" %>
 <%@ page import="us.guihouse.autobank.repositories.CollaboratorRepository" %>
+<%@ page import="us.guihouse.autobank.models.collaborator.Collaborator" %>
 <%--
   Created by IntelliJ IDEA.
   User: vrjunior
@@ -14,11 +15,14 @@
     if(idCollaborator != null) {
         ConnectionManager connectionManager = new ConnectionManager();
         CollaboratorRepository collaboratorRepository = new CollaboratorRepository(connectionManager.getConnection());
-        if(collaboratorRepository.validateCollaboratorById(idCollaborator)) {
-            //redirect
-        }
-    }
+        Collaborator collaborator;
 
+        try {
+            collaborator = collaboratorRepository.validateCollaboratorById(idCollaborator);
+        }
+        catch (CollaboratorRepository.NoAuthentication e) {}
+    }
+    response.setHeader("SET-COOKIE", "JSESSIONID=" + session.getId() + "; HttpOnly");
 %>
 <html>
   <head>

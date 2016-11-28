@@ -1,8 +1,8 @@
 package us.guihouse.autobank.repositories;
 
-import us.guihouse.autobank.models.Client;
-import us.guihouse.autobank.models.ClosedBill;
-import us.guihouse.autobank.models.OpenBill;
+import us.guihouse.autobank.models.client.Client;
+import us.guihouse.autobank.models.client.ClosedBill;
+import us.guihouse.autobank.models.client.OpenBill;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

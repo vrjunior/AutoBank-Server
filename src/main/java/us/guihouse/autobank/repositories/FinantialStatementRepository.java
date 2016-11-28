@@ -1,6 +1,6 @@
 package us.guihouse.autobank.repositories;
 
-import us.guihouse.autobank.models.*;
+import us.guihouse.autobank.models.client.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

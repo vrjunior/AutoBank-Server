@@ -1,7 +1,7 @@
-package us.guihouse.autobank.models.auxiliar;
+package us.guihouse.autobank.models.client.auxiliar;
 
-import us.guihouse.autobank.models.ClosedBill;
-import us.guihouse.autobank.models.OpenBill;
+import us.guihouse.autobank.models.client.ClosedBill;
+import us.guihouse.autobank.models.client.OpenBill;
 
 import java.util.ArrayList;
 

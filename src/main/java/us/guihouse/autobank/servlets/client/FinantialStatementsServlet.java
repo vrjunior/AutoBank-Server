@@ -1,7 +1,7 @@
 package us.guihouse.autobank.servlets.client;
 
 import com.google.gson.JsonObject;
-import us.guihouse.autobank.models.auxiliar.FinantialStatements;
+import us.guihouse.autobank.models.client.auxiliar.FinantialStatements;
 import us.guihouse.autobank.repositories.FinantialStatementRepository;
 
 import javax.servlet.annotation.WebServlet;

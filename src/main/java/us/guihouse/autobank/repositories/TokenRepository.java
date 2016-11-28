@@ -1,6 +1,6 @@
 package us.guihouse.autobank.repositories;
 
-import us.guihouse.autobank.models.Token;
+import us.guihouse.autobank.models.client.Token;
 
 import java.security.SecureRandom;
 import java.sql.*;

@@ -1,7 +1,7 @@
 package us.guihouse.autobank.servlets.client;
 
 import com.google.gson.JsonObject;
-import us.guihouse.autobank.models.Client;
+import us.guihouse.autobank.models.client.Client;
 import us.guihouse.autobank.repositories.ClientRepository;
 import us.guihouse.autobank.repositories.ConnectionManager;
 

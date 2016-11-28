@@ -1,8 +1,7 @@
-package us.guihouse.autobank.models;
+package us.guihouse.autobank.models.client;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import us.guihouse.autobank.other.gson.Exclude;
 
 /**
  * Created by valmir.massoni on 19/10/2016.

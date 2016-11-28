@@ -1,7 +1,7 @@
 package us.guihouse.autobank.servlets.client;
 
 import com.google.gson.JsonObject;
-import us.guihouse.autobank.models.Card;
+import us.guihouse.autobank.models.client.Card;
 import us.guihouse.autobank.repositories.CardRepository;
 
 import javax.servlet.annotation.WebServlet;

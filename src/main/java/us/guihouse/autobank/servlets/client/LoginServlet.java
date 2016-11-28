@@ -3,7 +3,7 @@ package us.guihouse.autobank.servlets.client;
 import com.google.gson.Gson;
 
 import com.google.gson.JsonObject;
-import us.guihouse.autobank.models.Token;
+import us.guihouse.autobank.models.client.Token;
 import us.guihouse.autobank.repositories.ClientRepository;
 import us.guihouse.autobank.repositories.ConnectionManager;
 

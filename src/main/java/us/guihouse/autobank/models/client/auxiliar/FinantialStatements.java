@@ -1,9 +1,9 @@
-package us.guihouse.autobank.models.auxiliar;
+package us.guihouse.autobank.models.client.auxiliar;
 
-import us.guihouse.autobank.models.InterestRate;
-import us.guihouse.autobank.models.Payment;
-import us.guihouse.autobank.models.Purchase;
-import us.guihouse.autobank.models.Reversal;
+import us.guihouse.autobank.models.client.InterestRate;
+import us.guihouse.autobank.models.client.Payment;
+import us.guihouse.autobank.models.client.Purchase;
+import us.guihouse.autobank.models.client.Reversal;
 
 import java.util.ArrayList;
 

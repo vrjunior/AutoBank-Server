@@ -1,7 +1,7 @@
 package us.guihouse.autobank.repositories;
 
-import us.guihouse.autobank.models.Card;
-import us.guihouse.autobank.models.Client;
+import us.guihouse.autobank.models.client.Card;
+import us.guihouse.autobank.models.client.Client;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

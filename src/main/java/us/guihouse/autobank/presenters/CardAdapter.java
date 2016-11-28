@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import us.guihouse.autobank.models.Card;
+import us.guihouse.autobank.models.client.Card;
 
 import java.lang.reflect.Type;
 
