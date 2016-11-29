@@ -67,7 +67,7 @@ public class CollaboratorRepository {
             collaborator.setEmail(rs.getString("EMAIL"));
             collaborator.setPassword(rs.getString("PASSWORD"));
 
-            if(!BCrypt.checkpw(password, collaborator.getPassword())) {
+            if(!(BCrypt.checkpw(password, collaborator.getPassword()))) {
                 throw new NoAuthentication();
             }
 

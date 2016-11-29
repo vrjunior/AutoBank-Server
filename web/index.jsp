@@ -11,18 +11,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%
     session = request.getSession();
-    Long idCollaborator = (Long) session.getAttribute("collaborator_id");
+    Long idCollaborator = (Long) session.getAttribute("collaboratorId");
     if(idCollaborator != null) {
         ConnectionManager connectionManager = new ConnectionManager();
         CollaboratorRepository collaboratorRepository = new CollaboratorRepository(connectionManager.getConnection());
-        Collaborator collaborator;
 
         try {
-            collaborator = collaboratorRepository.validateCollaboratorById(idCollaborator);
+            collaboratorRepository.validateCollaboratorById(idCollaborator);
+            response.sendRedirect("/AutoBank/main.jsp");
         }
         catch (CollaboratorRepository.NoAuthentication e) {}
     }
-    response.setHeader("SET-COOKIE", "JSESSIONID=" + session.getId() + "; HttpOnly");
 %>
 <html>
   <head>
@@ -36,7 +35,7 @@
   <body>
 
     <section id="loginSection">
-      <form action="#" method="POST">
+      <form action="/AutoBank/web/login-collaborator" method="POST">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="email" id="email" name="email">
           <label class="mdl-textfield__label" for="email">Email</label>
@@ -51,7 +50,5 @@
         </div>
       </form>
     </section>
-
-
   </body>
 </html>
