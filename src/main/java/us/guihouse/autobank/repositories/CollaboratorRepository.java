@@ -22,7 +22,7 @@ public class CollaboratorRepository {
     public Collaborator validateCollaboratorById(Long id) throws NoAuthentication {
         Collaborator currentCollaborator = new Collaborator();
         StringBuilder selectCollaborator  = new StringBuilder();
-        selectCollaborator.append("SELECT NAME ")
+        selectCollaborator.append("SELECT ID, NAME, CPF, EMAIL, PASSWORD ")
                 .append("FROM COLLABORATORS ")
                 .append("WHERE ID = ? ");
 
