@@ -1,4 +1,4 @@
-<%--
+<%@ page import="us.guihouse.autobank.servlets.collaborator.JSessionAuthentication" %><%--
   Created by IntelliJ IDEA.
   User: aluno
   Date: 29/11/16
@@ -6,9 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" extends="us.guihouse.autobank.servlets.collaborator.JSessionAuthentication" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 <%
-    super.doGet(request, response);
+    JSessionAuthentication authentication = new JSessionAuthentication();
+    authentication.authenticate(request, response);
 %>
 <html>
 <head>

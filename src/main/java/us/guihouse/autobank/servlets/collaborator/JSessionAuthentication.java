@@ -4,6 +4,7 @@ import us.guihouse.autobank.models.collaborator.Collaborator;
 import us.guihouse.autobank.repositories.CollaboratorRepository;
 import us.guihouse.autobank.repositories.ConnectionManager;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,17 +17,12 @@ import java.sql.Connection;
 /**
  * Created by vrjunior on 25/11/16.
  */
-public class JSessionAuthentication extends javax.servlet.http.HttpServlet {
+public class JSessionAuthentication {
     protected Collaborator collaborator;
     protected ConnectionManager connectionManager;
     protected Connection conn;
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void authenticate (HttpServletRequest req, HttpServletResponse resp) throws IOException {
         connectionManager = new ConnectionManager();
         HttpSession session = req.getSession();
         Long id = (Long) session.getAttribute("collaboratorId");
