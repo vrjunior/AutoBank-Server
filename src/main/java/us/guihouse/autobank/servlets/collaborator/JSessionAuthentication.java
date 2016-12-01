@@ -28,6 +28,7 @@ public class JSessionAuthentication {
         Long id = (Long) session.getAttribute("collaboratorId");
         if(id == null) {
             resp.setStatus(401);
+            resp.sendError(401);
             return;
         }
         this.conn = this.connectionManager.getConnection();
@@ -36,6 +37,7 @@ public class JSessionAuthentication {
             collaborator = collaboratorRepository.validateCollaboratorById(id);
         } catch (CollaboratorRepository.NoAuthentication noAuthentication) {
             resp.setStatus(401);
+            resp.sendError(401);
             return;
         }
     }
