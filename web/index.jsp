@@ -48,7 +48,7 @@
           <input class="mdl-textfield__input" type="password" id="password" name="password">
           <label class="mdl-textfield__label" for="email">Password</label>
         </div>
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btnLogin" type="button">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btnLogin">
             Login
           </button>
         </div>
