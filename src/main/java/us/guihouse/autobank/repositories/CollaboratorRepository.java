@@ -81,9 +81,10 @@ public class CollaboratorRepository {
         return collaborator;
     }
 
-    public ArrayList<Client> getClients(String search, ClientOrdenation clientOrdenation) {
+    public ArrayList<Client> getClients(String search, ClientOrdenation clientOrdenation, int offset, int fetch) {
         StringBuilder selectClient = new StringBuilder();
         ArrayList<Client> clients = new ArrayList<>();
+        search = "%" + search + "%";
         selectClient.append("SELECT ID, NAME, EMAIL, CPF, BIRTHDAY ");
         selectClient.append("FROM CLIENTS ");
         if(search != null) {
@@ -107,8 +108,10 @@ public class CollaboratorRepository {
                     break;
             }
             if(clientOrdenation.getDirection()) {
-                selectClient.append(" DESC ");
+                selectClient.append("DESC ");
             }
+            selectClient.append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ");
+
         }
 
         try {
@@ -117,7 +120,12 @@ public class CollaboratorRepository {
                 ps.setString(1, search);
                 ps.setString(2, search);
                 ps.setString(3, search);
-
+                ps.setInt(4, offset);
+                ps.setInt(5, fetch);
+            }
+            else {
+                ps.setInt(1, offset);
+                ps.setInt(2, fetch);
             }
             ResultSet rs = ps.executeQuery();
             Client client;
@@ -136,7 +144,7 @@ public class CollaboratorRepository {
         }
         return clients;
     }
-    public ArrayList<Client> getClients() {
-        return this.getClients(null, null);
+    public ArrayList<Client> getClients(int offset, int fetch) {
+        return this.getClients(null, null, offset, fetch);
     }
 }
