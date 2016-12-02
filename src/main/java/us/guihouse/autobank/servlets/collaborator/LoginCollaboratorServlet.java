@@ -28,7 +28,6 @@ public class LoginCollaboratorServlet extends javax.servlet.http.HttpServlet {
             collaborator = collaboratorRepository.performLogin(email, password);
             HttpSession session = req.getSession();
             session.setAttribute("collaboratorId", collaborator.getId());
-            resp.sendRedirect("/AutoBank/main.jsp");
         } catch (CollaboratorRepository.NoAuthentication noAuthentication) {
             resp.setStatus(501);
             return;

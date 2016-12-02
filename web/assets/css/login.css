@@ -20,12 +20,38 @@ section#loginSection {
     border-radius: 10px;
 }
 
+div#error{
+    display: none;
+    font-size: 18px;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    background-color: #F8E0DC;
+    border: 1px #F44336 solid;
+    border-radius: 5px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+div#error p#errorMsg {
+    color: #F44336;
+    margin: 0;
+}
+
 section#loginSection form {
     vertical-align: middle;
     margin: auto;
+    display: block;
 }
 
 div.mdl-textfield, div.mdl-button {
     display: block;
     margin: auto;
+}
+
+div#loader {
+    margin: 10px auto 0 auto;
+    display: block !important;
+    visibility: hidden;
 }
