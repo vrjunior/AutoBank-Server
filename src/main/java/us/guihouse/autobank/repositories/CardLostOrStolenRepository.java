@@ -1,6 +1,6 @@
 package us.guihouse.autobank.repositories;
 
-import us.guihouse.autobank.models.CardLostOrStolen;
+import us.guihouse.autobank.models.collaborator.CardLostOrStolen;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * Created by guilherme on 05/12/16.
  */
 public class CardLostOrStolenRepository {
+    private static final Long PER_PAGE = 15L;
     private Connection conn;
 
     public CardLostOrStolenRepository(Connection conn) {
@@ -30,8 +31,8 @@ public class CardLostOrStolenRepository {
                 .append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
 
         PreparedStatement preparedStatement = this.conn.prepareStatement(sqlSelectCard.toString());
-        preparedStatement.setLong(1, page);
-        preparedStatement.setLong(2, 15);
+        preparedStatement.setLong(1, (page - 1) * PER_PAGE);
+        preparedStatement.setLong(2, PER_PAGE);
         ResultSet rs = preparedStatement.executeQuery();
 
         ArrayList<CardLostOrStolen> list = new ArrayList<>();

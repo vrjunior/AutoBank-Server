@@ -1,4 +1,5 @@
 <%@taglib prefix="auto" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 
 <auto:admin-template>
@@ -14,7 +15,14 @@
                 </tr>
             </thead>
             <tbody>
-
+                <c:forEach items="${reasons}" var="reason">
+                    <tr>
+                        <td>${reason.id}</td>
+                        <td>${reason.clientName}</td>
+                        <td>${reason.clientCpf}</td>
+                        <td>${reason.createdAt}</td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
     </jsp:body>

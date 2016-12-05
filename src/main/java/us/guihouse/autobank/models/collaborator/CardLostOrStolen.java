@@ -1,4 +1,4 @@
-package us.guihouse.autobank.models;
+package us.guihouse.autobank.models.collaborator;
 
 import us.guihouse.autobank.models.client.Card;
 

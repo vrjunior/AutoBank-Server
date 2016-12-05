@@ -1,6 +1,6 @@
 package us.guihouse.autobank.servlets.collaborator.cancellation;
 
-import us.guihouse.autobank.models.CardLostOrStolen;
+import us.guihouse.autobank.models.collaborator.CardLostOrStolen;
 import us.guihouse.autobank.other.PageParser;
 import us.guihouse.autobank.repositories.CardLostOrStolenRepository;
 import us.guihouse.autobank.servlets.collaborator.AuthenticatedContext;
