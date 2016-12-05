@@ -81,4 +81,12 @@ public class CardLostOrStolen {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getLastCardDigits() {
+        if (cardNumber.length() < 4) {
+            return "";
+        }
+
+        return cardNumber.substring(cardNumber.length() - 4);
+    }
 }

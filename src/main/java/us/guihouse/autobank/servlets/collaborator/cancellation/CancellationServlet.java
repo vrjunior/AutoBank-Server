@@ -16,7 +16,7 @@ import java.util.HashMap;
  * Created by guilherme on 05/12/16.
  */
 @WebServlet("web/cancellation/*")
-public class ViewCancellationServlet extends AuthenticatedServlet {
+public class CancellationServlet extends AuthenticatedServlet {
     @Override
     protected void doGet(AuthenticatedContext context) throws ServletException, IOException, SQLException {
         Long id = IdParser.safeParse(context.getLastPathPart());
@@ -30,7 +30,7 @@ public class ViewCancellationServlet extends AuthenticatedServlet {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("reason", reason);
-        context.forward("/WEB-INF/tags/show-card-lost-stolen", params);
+        context.forward("/WEB-INF/tags/show-card-lost-stolen.jsp", params);
     }
 
     @Override

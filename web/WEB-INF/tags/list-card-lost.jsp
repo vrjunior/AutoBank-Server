@@ -12,6 +12,7 @@
                     <th class="mdl-data-table__cell--non-numeric">Nome do Cliente</th>
                     <th>CPF</th>
                     <th>Aberto em</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,7 @@
                         <td class="mdl-data-table__cell--non-numeric">${reason.clientName}</td>
                         <td>${reason.clientCpf}</td>
                         <td>${reason.createdAt}</td>
+                        <td><a href="cancellation/${reason.id}">Detalhes</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
