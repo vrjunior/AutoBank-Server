@@ -1,4 +1,4 @@
-package us.guihouse.autobank.servlets.collaborator.cancellation;
+package us.guihouse.autobank.servlets.collaborator;
 
 import us.guihouse.autobank.models.collaborator.CardLostOrStolen;
 import us.guihouse.autobank.other.PageParser;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 /**
  * Created by guilherme on 05/12/16.
  */
-@WebServlet("cancellations")
+@WebServlet("/web/cancellations")
 public class ListCancellationsServlet extends AuthenticatedServlet {
     @Override
     protected void doGet(AuthenticatedContext context) throws SQLException, ServletException, IOException {
