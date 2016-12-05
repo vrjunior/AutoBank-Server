@@ -4,10 +4,8 @@ import us.guihouse.autobank.models.client.Card;
 import us.guihouse.autobank.models.client.Client;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.Instant;
 
 /**
  * Created by valmir.massoni on 19/10/2016.
@@ -81,7 +79,7 @@ public class CardRepository {
         StringBuilder sqlDesactiveCard = new StringBuilder();
         boolean result;
 
-        sqlInsertLost.append("INSERT INTO CARDS_FLAGGED_LOST_STOLEN(CARD_ID, CLIENT_COMMENT) ")
+        sqlInsertLost.append("INSERT INTO CARDS_FLAGGED_LOST_STOLEN(CARD_ID, CLIENT_COMMENT, CREATED_AT) ")
                 .append("VALUES(( SELECT ID FROM CARDS ")
                 .append("WHERE CLIENT_ID = ? ")
                 .append("AND ID = ? ), ? ) ");
@@ -98,6 +96,7 @@ public class CardRepository {
             ps.setLong(1, client.getId());
             ps.setLong(2, cardId);
             ps.setString(3, clientComment);
+            ps.setTimestamp(4, Timestamp.from(Instant.now()));
             ps.executeUpdate();
 
             ps = conn.prepareStatement(sqlDesactiveCard.toString());
