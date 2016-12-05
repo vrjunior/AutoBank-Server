@@ -2,6 +2,7 @@ package us.guihouse.autobank.servlets.collaborator.cancellation;
 
 import us.guihouse.autobank.models.collaborator.CardLostOrStolen;
 import us.guihouse.autobank.other.PageParser;
+import us.guihouse.autobank.other.Pager;
 import us.guihouse.autobank.repositories.CardLostOrStolenRepository;
 import us.guihouse.autobank.servlets.collaborator.AuthenticatedContext;
 import us.guihouse.autobank.servlets.collaborator.AuthenticatedServlet;
@@ -20,13 +21,12 @@ import java.util.HashMap;
 public class ListCancellationsServlet extends AuthenticatedServlet {
     @Override
     protected void doGet(AuthenticatedContext context) throws SQLException, ServletException, IOException {
-        Long page = PageParser.getPage(context);
         CardLostOrStolenRepository repo = context.getRepositoryManager().getCardLostOrStolenRepo();
-        ArrayList<CardLostOrStolen> reasons = repo.getReasons(page);
-        Long total = repo.getTotalReasons();
+        Pager<CardLostOrStolen> pager = Pager.getPager(context);
+        repo.getReasons(pager);
+
         HashMap<String, Object> params = new HashMap<>();
-        params.put("reasons", reasons);
-        params.put("total", total);
+        params.put("pager", pager);
         context.forward("/WEB-INF/tags/list-card-lost.jsp", params);
     }
 

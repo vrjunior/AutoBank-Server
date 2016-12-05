@@ -1,6 +1,8 @@
 package us.guihouse.autobank.repositories;
 
 import us.guihouse.autobank.models.collaborator.CardLostOrStolen;
+import us.guihouse.autobank.other.Pager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,14 +13,13 @@ import java.util.ArrayList;
  * Created by guilherme on 05/12/16.
  */
 public class CardLostOrStolenRepository {
-    private static final Long PER_PAGE = 15L;
     private Connection conn;
 
     public CardLostOrStolenRepository(Connection conn) {
         this.conn = conn;
     }
 
-    public ArrayList<CardLostOrStolen> getReasons(Long page) throws SQLException {
+    public void getReasons(Pager<CardLostOrStolen> pager) throws SQLException {
         CardLostOrStolen currentReason;
 
         StringBuilder sqlSelectCard = new StringBuilder();
@@ -31,8 +32,8 @@ public class CardLostOrStolenRepository {
                 .append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
 
         PreparedStatement preparedStatement = this.conn.prepareStatement(sqlSelectCard.toString());
-        preparedStatement.setLong(1, (page - 1) * PER_PAGE);
-        preparedStatement.setLong(2, PER_PAGE);
+        preparedStatement.setLong(1, pager.getOffset());
+        preparedStatement.setLong(2, pager.getPerPage());
         ResultSet rs = preparedStatement.executeQuery();
 
         ArrayList<CardLostOrStolen> list = new ArrayList<>();
@@ -51,7 +52,8 @@ public class CardLostOrStolenRepository {
             list.add(currentReason);
         }
 
-        return list;
+        pager.setRecords(list);
+        pager.setTotalCount(getTotalReasons());
     }
 
     public Long getTotalReasons() throws SQLException {

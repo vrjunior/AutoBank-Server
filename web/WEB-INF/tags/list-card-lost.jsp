@@ -4,7 +4,6 @@
 
 <auto:admin-template>
     <jsp:body>
-        <h1>${total}</h1>
         <table>
             <thead>
                 <tr>
@@ -15,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${reasons}" var="reason">
+                <c:forEach items="${pager.records}" var="reason">
                     <tr>
                         <td>${reason.id}</td>
                         <td>${reason.clientName}</td>
@@ -25,6 +24,7 @@
                 </c:forEach>
             </tbody>
         </table>
+        <auto:paginator/>
     </jsp:body>
 </auto:admin-template>
 
