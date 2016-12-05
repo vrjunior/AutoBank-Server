@@ -1,8 +1,10 @@
-package us.guihouse.autobank.servlets.collaborator;
+package us.guihouse.autobank.servlets.collaborator.cancellation;
 
 import us.guihouse.autobank.models.collaborator.CardLostOrStolen;
 import us.guihouse.autobank.other.Pager;
 import us.guihouse.autobank.repositories.CardLostOrStolenRepository;
+import us.guihouse.autobank.servlets.collaborator.AuthenticatedContext;
+import us.guihouse.autobank.servlets.collaborator.AuthenticatedServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
