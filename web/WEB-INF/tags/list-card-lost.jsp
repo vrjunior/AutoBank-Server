@@ -4,11 +4,12 @@
 
 <auto:admin-template>
     <jsp:body>
-        <table>
+        <h1 class="title">Solicitações de cancelamento</h1>
+        <table class="mdl-data-table mdl-js-data-table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nome do Cliente</th>
+                    <th class="mdl-data-table__cell--non-numeric">Nome do Cliente</th>
                     <th>CPF</th>
                     <th>Aberto em</th>
                 </tr>
@@ -17,7 +18,7 @@
                 <c:forEach items="${pager.records}" var="reason">
                     <tr>
                         <td>${reason.id}</td>
-                        <td>${reason.clientName}</td>
+                        <td class="mdl-data-table__cell--non-numeric">${reason.clientName}</td>
                         <td>${reason.clientCpf}</td>
                         <td>${reason.createdAt}</td>
                     </tr>

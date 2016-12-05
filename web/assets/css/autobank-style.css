@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+header.mdl-layout__header div.mdl-layout__drawer-button i.material-icons {
+    margin: 12px 0;
+}
+
+table {
+    margin: auto;
+}
+h1.title {
+    font-size: 32px;
+    margin: 20px auto 10px auto;
+}

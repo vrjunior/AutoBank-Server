@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Dashboard - AutoBank</title>
+    <link rel="stylesheet" href="/AutoBank/assets/css/autobank-style.css"/>
 </head>
     <body>
         <auto:menu-header/>
