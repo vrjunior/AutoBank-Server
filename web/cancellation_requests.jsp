@@ -1,4 +1,5 @@
-<%@ page import="us.guihouse.autobank.servlets.collaborator.JSessionAuthentication" %><%--
+<%@ page import="us.guihouse.autobank.other.CollaboratorAuthenticator" %>
+<%@ page import="us.guihouse.autobank.controllers.Base" %><%--
   Created by IntelliJ IDEA.
   User: aluno
   Date: 29/11/16
@@ -8,7 +9,9 @@
 <%@taglib prefix="auto" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 <%
-    JSessionAuthentication authentication = new JSessionAuthentication();
+    Base b = new Base();
+    b.process(this);
+    CollaboratorAuthenticator authentication = new CollaboratorAuthenticator();
     authentication.authenticate(request, response);
 %>
 

@@ -24,6 +24,7 @@ public class LoginCollaboratorServlet extends javax.servlet.http.HttpServlet {
 
         ConnectionManager connectionManager = new ConnectionManager();
         CollaboratorRepository collaboratorRepository = new CollaboratorRepository(connectionManager.getConnection());
+
         try {
             collaborator = collaboratorRepository.performLogin(email, password);
             HttpSession session = req.getSession();
