@@ -1,6 +1,5 @@
 package us.guihouse.autobank.servlets;
 
-import us.guihouse.autobank.repositories.CollaboratorRepository;
 import us.guihouse.autobank.repositories.RepositoryManager;
 
 import javax.servlet.ServletException;
@@ -23,4 +22,5 @@ public interface Context {
     void forward(String destination) throws ServletException, IOException;
     void forward(String destination, HashMap<String, Object> params) throws ServletException, IOException;
     void rejectMethod();
+    String getLastPathPart();
 }

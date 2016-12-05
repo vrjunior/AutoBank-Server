@@ -1,22 +1,15 @@
 package us.guihouse.autobank.servlets.collaborator;
 
 import us.guihouse.autobank.models.collaborator.CardLostOrStolen;
-import us.guihouse.autobank.other.PageParser;
 import us.guihouse.autobank.other.Pager;
 import us.guihouse.autobank.repositories.CardLostOrStolenRepository;
-import us.guihouse.autobank.servlets.collaborator.AuthenticatedContext;
-import us.guihouse.autobank.servlets.collaborator.AuthenticatedServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by guilherme on 05/12/16.
- */
 @WebServlet("/web/cancellations")
 public class ListCancellationsServlet extends AuthenticatedServlet {
     @Override

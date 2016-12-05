@@ -78,6 +78,17 @@ public class DatabaseContext implements Context {
         rejected = true;
     }
 
+    @Override
+    public String getLastPathPart() {
+        String[] pathInfo = request.getPathInfo().split("/");
+
+        if (pathInfo.length < 1) {
+            return "";
+        }
+
+        return pathInfo[pathInfo.length - 1];
+    }
+
     public void closeConnectionIfNeeded() {
         if (connection != null) {
             connectionManager.closeConnection(connection);

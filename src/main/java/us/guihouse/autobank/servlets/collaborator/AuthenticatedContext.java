@@ -71,4 +71,8 @@ public class AuthenticatedContext implements Context {
     public void rejectMethod() {
         base.rejectMethod();
     }
+
+    public String getLastPathPart() {
+        return base.getLastPathPart();
+    }
 }
