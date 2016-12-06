@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body {
+    text-align: center;
+}
+
 header.mdl-layout__header div.mdl-layout__drawer-button i.material-icons {
     margin: 12px 0;
 }
@@ -11,4 +15,22 @@ h1.title {
     font-size: 32px;
     margin: 20px auto 10px auto;
     text-align: center;
+    display: inline-block;
 }
+
+
+/* ListClient */
+
+div#searchSection {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+
+div#ordenationSection {
+    display: block;
+    margin: 0 auto 0 auto;
+}
+
+
+/**************/

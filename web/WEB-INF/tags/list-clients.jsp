@@ -1,10 +1,38 @@
-<%@taglib prefix="auto" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="auto" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 
+<c:set var="cons" value="us.guihouse.autobank.servlets.collaborator.Constants"/>
 <auto:admin-template>
     <jsp:body>
-        <h1 class="title">Clientes</h1>
+        <form action="/AutoBank/web/list-clients" method="GET" id="formListClient">
+            <h1 class="title">Clientes</h1>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable" id="searchSection">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="search-input">
+                    <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield__expandable-holder">
+                    <input class="mdl-textfield__input" type="text" id="search-input" name="search">
+                    <label class="mdl-textfield__label" for="search-input">Buscar</label>
+                </div>
+            </div>
+            <div id="ordenationSection">
+                <select name="ordenation" >
+                    <option value="" disabled>Ordenar por</option>
+                    <option value="0">Nome</option>
+                    <option value="1">CPF</option>
+                    <option value="2">Aniversário</option>
+                </select>
+
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                    <input type="radio" id="option-1" class="mdl-radio__button" name="direction" value="0">
+                    <span class="mdl-radio__label">Crescente</span>
+                </label>
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                    <input type="radio" id="option-2" class="mdl-radio__button" name="direction" value="1">
+                    <span class="mdl-radio__label">Decrescente</span>
+                </label>
+            </div>
+        </form>
         <table class="mdl-data-table mdl-js-data-table">
             <thead>
                 <tr>
@@ -26,6 +54,6 @@
                 </tbody>
             </thead>
         </table>
-        <!-- auto:paginator Exception: does not have the property 'lastPage'. -->
+        <auto:paginator/>
     </jsp:body>
 </auto:admin-template>

@@ -20,7 +20,7 @@ public class ListClients extends AuthenticatedServlet {
     protected void doGet(AuthenticatedContext context) throws ServletException, IOException, SQLException {
         CollaboratorRepository collaboratorRepository = context.getRepositoryManager().getCollaboratorRepository();
         Pager<Client> pager = Pager.getPager(context);
-        collaboratorRepository.getClients(pager);
+        collaboratorRepository.getClients(this.getSearch(context), this.getOrdenation(context), pager);
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("pager", pager);
@@ -33,11 +33,15 @@ public class ListClients extends AuthenticatedServlet {
     }
 
     private String getSearch(AuthenticatedContext context) {
-        return context.getRequest().getParameter("search");
+        return context.getRequest().getParameter(Constants.SEARCH_PARAM);
     }
     private ClientOrdenation getOrdenation(AuthenticatedContext context) {
-        int filter = Integer.parseInt(context.getRequest().getParameter("filter"));
-        boolean order = Boolean.parseBoolean(context.getRequest().getParameter("ordernation"));
-        return new ClientOrdenation(ClientOrdenation.ClientOrder.values()[filter], order);
+        String param = context.getRequest().getParameter(Constants.ORDENATION_PARAM);
+        if(param != null) {
+            int ordenation = Integer.parseInt(param);
+            boolean direction = Boolean.parseBoolean(context.getRequest().getParameter(Constants.DIRECTION_PARAM));
+            return new ClientOrdenation(ClientOrdenation.ClientOrder.values()[ordenation], direction);
+        }
+        return null;
     }
 }

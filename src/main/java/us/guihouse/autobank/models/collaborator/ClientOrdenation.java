@@ -6,7 +6,7 @@ package us.guihouse.autobank.models.collaborator;
 public class ClientOrdenation {
 
     public enum ClientOrder {
-        NAME, EMAIL, CPF, BIRTHDAY;
+        NAME, EMAIL, CPF, BIRTHDAY
     }
 
     private ClientOrder ordenation;

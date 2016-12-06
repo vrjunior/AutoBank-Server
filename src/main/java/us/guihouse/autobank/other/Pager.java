@@ -78,7 +78,7 @@ public class Pager<K> {
         return canGoFirst();
     }
 
-    public Long lastPage() {
+    public Long getLastPage() {
         long extra = 0;
 
         if (totalCount % perPage != 0) {
