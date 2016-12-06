@@ -4,6 +4,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import us.guihouse.autobank.models.client.Client;
 import us.guihouse.autobank.models.collaborator.ClientOrdenation;
 import us.guihouse.autobank.models.collaborator.Collaborator;
+import us.guihouse.autobank.other.Pager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -81,13 +82,13 @@ public class CollaboratorRepository {
         return collaborator;
     }
 
-    public ArrayList<Client> getClients(String search, ClientOrdenation clientOrdenation, int offset, int fetch) {
+    public void getClients(String search, ClientOrdenation clientOrdenation, Pager<Client> pager) throws SQLException {
         StringBuilder selectClient = new StringBuilder();
         ArrayList<Client> clients = new ArrayList<>();
-        search = "%" + search + "%";
         selectClient.append("SELECT ID, NAME, EMAIL, CPF, BIRTHDAY ");
         selectClient.append("FROM CLIENTS ");
         if(search != null) {
+            search = "%" + search + "%";
             selectClient.append("WHERE (NAME LIKE ? ")
                     .append("OR EMAIL LIKE ? ")
                     .append("OR CPF LIKE ?) ");
@@ -110,9 +111,8 @@ public class CollaboratorRepository {
             if(clientOrdenation.getDirection()) {
                 selectClient.append("DESC ");
             }
-            selectClient.append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ");
-
         }
+        selectClient.append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ");
 
         try {
             PreparedStatement ps = this.conn.prepareCall(selectClient.toString());
@@ -120,12 +120,12 @@ public class CollaboratorRepository {
                 ps.setString(1, search);
                 ps.setString(2, search);
                 ps.setString(3, search);
-                ps.setInt(4, offset);
-                ps.setInt(5, fetch);
+                ps.setLong(4, pager.getOffset());
+                ps.setLong(5, pager.getPerPage());
             }
             else {
-                ps.setInt(1, offset);
-                ps.setInt(2, fetch);
+                ps.setLong(1, pager.getOffset());
+                ps.setLong(2, pager.getPerPage());
             }
             ResultSet rs = ps.executeQuery();
             Client client;
@@ -142,9 +142,37 @@ public class CollaboratorRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return clients;
+        pager.setRecords(clients);
+        pager.setTotalCount(getTotalClients(search));
     }
-    public ArrayList<Client> getClients(int offset, int fetch) {
-        return this.getClients(null, null, offset, fetch);
+    public void getClients(Pager<Client> pager) throws SQLException {
+        this.getClients(null, null, pager);
+    }
+
+    private Long getTotalClients(String search) throws SQLException {
+        StringBuilder selectClient = new StringBuilder();
+        selectClient.append("SELECT COUNT(*) ");
+        selectClient.append("FROM CLIENTS ");
+        if(search != null) {
+            selectClient.append("WHERE (NAME LIKE ? ")
+                    .append("OR EMAIL LIKE ? ")
+                    .append("OR CPF LIKE ?) ");
+        }
+
+        PreparedStatement preparedStatement = this.conn.prepareStatement(selectClient.toString());
+
+        if(search != null) {
+            preparedStatement.setString(1, search);
+            preparedStatement.setString(2, search);
+            preparedStatement.setString(3, search);
+        }
+        ResultSet rs = preparedStatement.executeQuery();
+        Long count = 0L;
+
+        if (rs.next()) {
+            count = rs.getLong(1);
+        }
+
+        return count;
     }
 }

@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Created by guilherme on 05/12/16.
  */
-@WebServlet("web/cancellation/*")
+@WebServlet("/web/cancellation/*")
 public class CancellationServlet extends AuthenticatedServlet {
     @Override
     protected void doGet(AuthenticatedContext context) throws ServletException, IOException, SQLException {

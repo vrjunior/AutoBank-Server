@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-@WebServlet("/web/cancellations")
+@WebServlet(urlPatterns = "/web/cancellations")
 public class ListCancellationsServlet extends AuthenticatedServlet {
     @Override
     protected void doGet(AuthenticatedContext context) throws SQLException, ServletException, IOException {

@@ -17,7 +17,7 @@
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation. We hide it in small screens. -->
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
-                        <a class="mdl-navigation__link" href="">Clientes</a>
+                        <a class="mdl-navigation__link" href="/AutoBank/web/list-clients">Clientes</a>
                         <a class="mdl-navigation__link" href="/AutoBank/web/cancellations">Solicitações de Cancelamento</a>
                     </nav>
                 </div>
@@ -25,8 +25,8 @@
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title">AutoBank</span>
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="">Clientes</a>
-                    <a class="mdl-navigation__link" href="">Solicitações de Cancelamento</a>
+                    <a class="mdl-navigation__link" href="/AutoBank/web/list-clients">Clientes</a>
+                    <a class="mdl-navigation__link" href="/AutoBank/web/cancellations">Solicitações de Cancelamento</a>
                 </nav>
             </div>
             <main class="mdl-layout__content">
