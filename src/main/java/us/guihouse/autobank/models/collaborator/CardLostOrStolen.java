@@ -89,4 +89,8 @@ public class CardLostOrStolen {
 
         return cardNumber.substring(cardNumber.length() - 4);
     }
+
+    public Long getCardId() {
+        return id;
+    }
 }

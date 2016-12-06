@@ -32,7 +32,7 @@ public abstract class AuthenticatedServlet extends DatabaseServlet {
     }
 
     protected abstract void doGet(AuthenticatedContext context) throws ServletException, IOException, SQLException;
-    protected abstract void doPost(AuthenticatedContext context) throws ServletException, IOException;
+    protected abstract void doPost(AuthenticatedContext context) throws ServletException, IOException, SQLException;
 
     private class NotAuthenticated extends Exception {};
 

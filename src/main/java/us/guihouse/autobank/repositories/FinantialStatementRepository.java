@@ -2,12 +2,8 @@ package us.guihouse.autobank.repositories;
 
 import us.guihouse.autobank.models.client.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-
 /**
  * Created by valmir.massoni on 16/11/2016.
  */
