@@ -16,6 +16,9 @@ public abstract class AuthenticatedServlet extends DatabaseServlet {
     @Override
     protected void doGet(Context context) throws IOException, ServletException, SQLException {
         try {
+            context.getResponse().setHeader("Content-Type", "text/html");
+            context.getResponse().setCharacterEncoding("UTF-8");
+            context.getResponse().setHeader("Accept-Encoding", "UTF-8");
             doGet(process(context));
         } catch (NotAuthenticated notAuthenticated) {
             context.getResponse().sendError(401);

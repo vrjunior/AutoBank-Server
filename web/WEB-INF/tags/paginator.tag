@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@tag description="paginator" pageEncoding="UTF-8" %>
 <ul>
     <c:if test="${pager.canGoFirst()}">
         <li><a href="?page=1">Primeira</a></li>

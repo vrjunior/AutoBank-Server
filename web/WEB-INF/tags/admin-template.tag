@@ -1,8 +1,7 @@
-<%@tag description="Template Base admin" pageEncoding="UTF-8"%>
+<%@tag description="Template Base admin" pageEncoding="UTF-8" %>
 <html>
 <head>
     <title>Dashboard - AutoBank</title>
-    <meta charset="UTF-8"/>
     <link rel="stylesheet" href="/AutoBank/assets/css/autobank-style.css"/>
 </head>
     <body>
