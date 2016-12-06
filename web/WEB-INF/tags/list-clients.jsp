@@ -4,7 +4,7 @@
 
 <auto:admin-template>
     <jsp:body>
-        <h1>Clientes</h1>
+        <h1 class="title">Clientes</h1>
         <table class="mdl-data-table mdl-js-data-table">
             <thead>
                 <tr>

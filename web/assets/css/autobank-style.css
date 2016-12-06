@@ -10,4 +10,5 @@ table {
 h1.title {
     font-size: 32px;
     margin: 20px auto 10px auto;
+    text-align: center;
 }
