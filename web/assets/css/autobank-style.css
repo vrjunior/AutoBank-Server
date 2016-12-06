@@ -11,6 +11,12 @@ header.mdl-layout__header div.mdl-layout__drawer-button i.material-icons {
 table {
     margin: auto;
 }
+
+table thead tr th {
+    background-color: #e7e7e7;
+    color: #000;
+}
+
 h1.title {
     font-size: 32px;
     margin: 20px auto 10px auto;
@@ -18,8 +24,39 @@ h1.title {
     display: inline-block;
 }
 
+ul.paginator {
+    list-style: none;
+    display: flex;
+    margin-top: 32px;
+    align-items: center;
+    justify-content: center;
+}
 
-/* ListClient */
+ul.paginator li:first-child {
+    border-left: 1px solid rgba(0,0,0,.12);
+}
+
+ul.paginator li {
+    display: inline-block;
+    padding: 7px 12px;
+    border-top: 1px solid rgba(0,0,0,.12);
+    border-right: 1px solid rgba(0,0,0,.12);;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    margin: 0;
+}
+
+ul.paginator li:hover {
+    background-color: #e7e7e7;
+    border-color: #e5e5e5;
+    color: #4078c0;
+}
+
+ul.paginator li a {
+    text-decoration: none;
+    color: #454545;
+}
+
+    /* ListClient */
 
 div#searchSection {
     display: inline-block;
