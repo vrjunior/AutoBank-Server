@@ -23,4 +23,5 @@ public interface Context {
     void forward(String destination, HashMap<String, Object> params) throws ServletException, IOException;
     void rejectMethod();
     String getLastPathPart();
+    String getBodyParam(String param);
 }

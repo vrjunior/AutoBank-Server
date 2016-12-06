@@ -8,7 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +26,7 @@ public class DatabaseContext implements Context {
     private Connection connection;
     private RepositoryManager repositoryManager;
     private boolean rejected;
+    private String responseBody;
 
     public DatabaseContext(HttpServletRequest request, HttpServletResponse response, ConnectionManager connectionManager) {
         this.request = request;
@@ -87,6 +90,27 @@ public class DatabaseContext implements Context {
         }
 
         return pathInfo[pathInfo.length - 1];
+    }
+
+//    private String getResponseBody() throws IOException {
+//        if (responseBody == null) {
+//            StringBuilder builder = new StringBuilder();
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+//            String line;
+//
+//            while ((line = reader.readLine()) != null) {
+//                builder.append(line);
+//            }
+//
+//            responseBody = builder.toString();
+//        }
+//
+//        return responseBody;
+//    }
+
+    @Override
+    public String getBodyParam(String param) {
+        return request.getParameter(param);
     }
 
     public void closeConnectionIfNeeded() {

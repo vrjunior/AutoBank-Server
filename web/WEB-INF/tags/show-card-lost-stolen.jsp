@@ -34,6 +34,20 @@
                 <td>Aberto em</td>
                 <td>${reason.createdAt}</td>
             </tr>
+            <tr>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="accepted" value="1"/>
+                        <button>Gerar novo plástico</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="accepted" value="0"/>
+                        <button>Finalizar contrato</button>
+                    </form>
+                </td>
+            </tr>
         </table>
     </jsp:body>
 </auto:admin-template>

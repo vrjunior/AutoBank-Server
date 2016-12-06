@@ -28,12 +28,14 @@ public class CardLostOrStolenRepository {
                 .append("FROM CARDS_FLAGGED_LOST_STOLEN REASONS ")
                 .append("INNER JOIN CARDS ON REASONS.CARD_ID = CARDS.ID ")
                 .append("INNER JOIN CLIENTS ON CARDS.CLIENT_ID = CLIENTS.ID ")
+                .append("WHERE REASONS.CLOSED = ?")
                 .append("ORDER BY REASONS.CREATED_AT ASC ")
                 .append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
 
         PreparedStatement preparedStatement = this.conn.prepareStatement(sqlSelectCard.toString());
-        preparedStatement.setLong(1, pager.getOffset());
-        preparedStatement.setLong(2, pager.getPerPage());
+        preparedStatement.setBoolean(1, false);
+        preparedStatement.setLong(2, pager.getOffset());
+        preparedStatement.setLong(3, pager.getPerPage());
         ResultSet rs = preparedStatement.executeQuery();
 
         ArrayList<CardLostOrStolen> list = new ArrayList<>();
@@ -94,7 +96,6 @@ public class CardLostOrStolenRepository {
                 .append("INNER JOIN CLIENTS ON CARDS.CLIENT_ID = CLIENTS.ID ")
                 .append("WHERE CARDS.ACTIVE = ?");
 
-
         PreparedStatement preparedStatement = this.conn.prepareStatement(sqlSelectCard.toString());
         preparedStatement.setBoolean(1, true);
         ResultSet rs = preparedStatement.executeQuery();
@@ -105,5 +106,16 @@ public class CardLostOrStolenRepository {
         }
 
         return count;
+    }
+
+    public void closeReasonById(Long id) throws SQLException {
+        StringBuilder sql = new StringBuilder("UPDATE CARDS_FLAGGED_LOST_STOLEN ");
+        sql.append("SET CLOSED = ? ")
+           .append("WHERE CARD_ID = ?");
+
+        PreparedStatement statement = this.conn.prepareStatement(sql.toString());
+        statement.setBoolean(1, true);
+        statement.setLong(2, id);
+        statement.executeUpdate();
     }
 }

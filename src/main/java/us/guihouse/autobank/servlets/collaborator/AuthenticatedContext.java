@@ -75,4 +75,9 @@ public class AuthenticatedContext implements Context {
     public String getLastPathPart() {
         return base.getLastPathPart();
     }
+
+    @Override
+    public String getBodyParam(String param) {
+        return base.getBodyParam(param);
+    }
 }

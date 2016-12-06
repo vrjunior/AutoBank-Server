@@ -34,7 +34,7 @@ public class CardRepository {
         Card currentCard = null;
 
         StringBuilder sqlSelectCard = new StringBuilder();
-        sqlSelectCard.append("SELECT ID, NUM, CVV, EMISSION, VALID_THROW, LIMIT_VALUE, INTEREST_RATE, CLOSING_DAY, ACTIVE, ")
+        sqlSelectCard.append("SELECT ID, CLIENT_ID, NUM, CVV, EMISSION, VALID_THROW, LIMIT_VALUE, INTEREST_RATE, CLOSING_DAY, ACTIVE, ")
                 .append("(").append(USED_VALUE_QUERY).append(") AS USED_VALUE ")
                 .append("FROM CARDS ")
                 .append("WHERE CARDS.CLIENT_ID = ? AND CARDS.ACTIVE = ?");
@@ -46,32 +46,37 @@ public class CardRepository {
         ResultSet rs = preparedStatement.executeQuery();
 
         if(rs.next()) {
-            currentCard = new Card();
-            BigDecimal usedValue = rs.getBigDecimal("USED_VALUE");
-            BigDecimal limit = rs.getBigDecimal("LIMIT_VALUE");
-
-            currentCard.setId(rs.getLong("ID"));
-            currentCard.setCardNumber(rs.getString("NUM"));
-            currentCard.setCvv(rs.getString("CVV"));
-            currentCard.setEmission(rs.getDate("EMISSION"));
-            currentCard.setValidThrow(rs.getDate("VALID_THROW"));
-            currentCard.setLimit(limit);
-            currentCard.setInterestRate(rs.getBigDecimal("INTEREST_RATE"));
-            currentCard.setClosingDay(rs.getInt("CLOSING_DAY"));
-            currentCard.setActive(rs.getBoolean("ACTIVE"));
-
-            if (usedValue.compareTo(BigDecimal.ZERO) > 0) {
-                currentCard.setUsedValue(usedValue);
-            } else {
-                // Payments + Reversals > Installments + Interests
-                // So, the client is creditor
-                currentCard.setUsedValue(BigDecimal.ZERO);
-            }
-
-            currentCard.setAvailableValue(limit.subtract(usedValue));
+            currentCard = Card.fromResultSet(rs);
         }
 
         return currentCard;
+    }
+
+    public void saveNewCard(Long clientId, Card newCard) throws SQLException {
+        StringBuilder sql = new StringBuilder("INSERT INTO CARDS (");
+        sql.append("CLIENT_ID, ")
+                .append("NUM, ")
+                .append("CVV, ")
+                .append("EMISSION, ")
+                .append("VALID_THROW, ")
+                .append("LIMIT_VALUE, ")
+                .append("INTEREST_RATE, ")
+                .append("CLOSING_DAY, ")
+                .append("ACTIVE) ");
+        sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        PreparedStatement statement = this.conn.prepareStatement(sql.toString());
+        statement.setLong(1, clientId);
+        statement.setString(2, newCard.getCardNumber());
+        statement.setString(3, newCard.getCvv());
+        statement.setDate(4, newCard.getEmission());
+        statement.setDate(5, newCard.getValidThrow());
+        statement.setBigDecimal(6, newCard.getLimit());
+        statement.setBigDecimal(7, newCard.getInterestRate());
+        statement.setInt(8, newCard.getClosingDay());
+        statement.setBoolean(9, true);
+
+        statement.executeUpdate();
     }
 
     public boolean informCardLost(Client client, Long cardId, String clientComment) {
@@ -123,5 +128,35 @@ public class CardRepository {
         }
 
         return result;
+    }
+
+    public Card getCardById(Long cardId) throws SQLException {
+        Card currentCard = null;
+
+        StringBuilder sqlSelectCard = new StringBuilder();
+        sqlSelectCard.append("SELECT ID, CLIENT_ID, NUM, CVV, EMISSION, VALID_THROW, LIMIT_VALUE, INTEREST_RATE, CLOSING_DAY, ACTIVE, ")
+                .append("(").append(USED_VALUE_QUERY).append(") AS USED_VALUE ")
+                .append("FROM CARDS ")
+                .append("WHERE CARDS.ID = ?");
+
+
+        PreparedStatement preparedStatement = this.conn.prepareStatement(sqlSelectCard.toString());
+        preparedStatement.setLong(1, cardId);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if(rs.next()) {
+            currentCard = Card.fromResultSet(rs);
+        }
+
+        return currentCard;
+    }
+
+    public void cancelCardById(Long cardId) throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE CARDS SET CANCELLED = ? WHERE ID = ?");
+        PreparedStatement preparedStatement = this.conn.prepareStatement(sql.toString());
+        preparedStatement.setBoolean(1, true);
+        preparedStatement.setLong(2, cardId);
+        preparedStatement.executeUpdate();
     }
 }

@@ -1,8 +1,10 @@
 package us.guihouse.autobank.servlets.collaborator.cancellation;
 
+import us.guihouse.autobank.models.client.Card;
 import us.guihouse.autobank.models.collaborator.CardLostOrStolen;
 import us.guihouse.autobank.other.IdParser;
 import us.guihouse.autobank.repositories.CardLostOrStolenRepository;
+import us.guihouse.autobank.repositories.CardRepository;
 import us.guihouse.autobank.servlets.collaborator.AuthenticatedContext;
 import us.guihouse.autobank.servlets.collaborator.AuthenticatedServlet;
 
@@ -34,7 +36,39 @@ public class CancellationServlet extends AuthenticatedServlet {
     }
 
     @Override
-    protected void doPost(AuthenticatedContext context) throws ServletException, IOException {
-        context.rejectMethod();
+    protected void doPost(AuthenticatedContext context) throws ServletException, IOException, SQLException {
+        String accepted = context.getBodyParam("accepted");
+        Long id = IdParser.safeParse(context.getLastPathPart());
+
+        CardLostOrStolenRepository repo = context.getRepositoryManager().getCardLostOrStolenRepo();
+        CardRepository cardRepo = context.getRepositoryManager().getCardRepository();
+
+        CardLostOrStolen reason = repo.getReasonById(id);
+
+        if (reason == null) {
+            context.getResponse().sendError(404);
+            return;
+        }
+
+        try {
+            if ("1".equals(accepted)) {
+                Card oldCard = cardRepo.getCardById(reason.getCardId());
+                Card newCard = Card.generateNewCard(oldCard);
+                cardRepo.saveNewCard(oldCard.getClientId(), newCard);
+            }
+            cardRepo.cancelCardById(reason.getCardId());
+            repo.closeReasonById(reason.getId());
+            context.getRepositoryManager().commit();
+        } catch (Exception ex) {
+            try {
+                context.getRepositoryManager().rollback();
+            } catch (Exception rollbackEx) {
+                System.out.print(rollbackEx.getMessage());
+                rollbackEx.printStackTrace();
+            }
+            throw ex;
+        }
+
+        context.getResponse().sendRedirect("../cancellations");
     }
 }
