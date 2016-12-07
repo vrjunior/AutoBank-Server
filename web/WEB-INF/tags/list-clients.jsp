@@ -11,13 +11,13 @@
                     <i class="material-icons">search</i>
                 </label>
                 <div class="mdl-textfield__expandable-holder">
-                    <input class="mdl-textfield__input" type="text" id="search-input" name="search">
+                    <input class="mdl-textfield__input" type="text" value="${search}" id="search-input" name="search">
                     <label class="mdl-textfield__label" for="search-input">Buscar</label>
                 </div>
             </div>
             <div id="ordenationSection">
-                <select name="ordenation" >
-                    <option value="" disabled>Ordenar por</option>
+                <select name="ordenation" id="comboOrdenation">
+                    <option value="" selected disabled>Ordenar por</option>
                     <option value="0">Nome</option>
                     <option value="1">CPF</option>
                     <option value="2">Aniversário</option>
@@ -32,13 +32,14 @@
                     <span class="mdl-radio__label">Decrescente</span>
                 </label>
             </div>
+            <input id="btnSendForm" type="submit"/>
         </form>
         <table class="mdl-data-table mdl-js-data-table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th class="mdl-data-table__cell--non-numeric">Nome</th>
-                    <th class="mdl-data-table__cell--non-numeric">Email</th>
+                    <th>Nome</th>
+                    <th>Email</th>
                     <th>CPF</th>
                     <th>Data de Nascimento</th>
                 </tr>

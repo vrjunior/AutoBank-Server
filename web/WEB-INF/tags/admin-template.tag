@@ -44,5 +44,6 @@
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
         <!-- JQUERY -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="/AutoBank/assets/js/AdminFunctions.js"></script>
     </body>
 </html>

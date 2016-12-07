@@ -20,10 +20,12 @@ public class ListClients extends AuthenticatedServlet {
     protected void doGet(AuthenticatedContext context) throws ServletException, IOException, SQLException {
         CollaboratorRepository collaboratorRepository = context.getRepositoryManager().getCollaboratorRepository();
         Pager<Client> pager = Pager.getPager(context);
-        collaboratorRepository.getClients(this.getSearch(context), this.getOrdenation(context), pager);
+        String search = this.getSearch(context);
+        collaboratorRepository.getClients(search, this.getOrdenation(context), pager);
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("pager", pager);
+        params.put("search", search);
         context.forward("/WEB-INF/tags/list-clients.jsp", params);
     }
 
