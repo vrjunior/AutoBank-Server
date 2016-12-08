@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="auto" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="auto" tagdir="/WEB-INF/tags/utils" %>
 <%@tag description="paginator" pageEncoding="UTF-8" %>
 <ul class="paginator">
     <c:if test="${pager.canGoFirst()}">

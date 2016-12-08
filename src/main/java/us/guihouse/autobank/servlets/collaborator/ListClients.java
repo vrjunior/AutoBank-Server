@@ -21,11 +21,16 @@ public class ListClients extends AuthenticatedServlet {
         CollaboratorRepository collaboratorRepository = context.getRepositoryManager().getCollaboratorRepository();
         Pager<Client> pager = Pager.getPager(context);
         String search = this.getSearch(context);
-        collaboratorRepository.getClients(search, this.getOrdenation(context), pager);
+        ClientOrdenation clientOrdenation = this.getOrdenation(context);
+        collaboratorRepository.getClients(search, clientOrdenation, pager);
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("pager", pager);
         params.put("search", search);
+        if(clientOrdenation != null) {
+            params.put("desc", clientOrdenation.getDirection());
+            params.put("ord", clientOrdenation.getOrdenation().ordinal());
+        }
         context.forward("/WEB-INF/tags/list-clients.jsp", params);
     }
 
@@ -39,9 +44,10 @@ public class ListClients extends AuthenticatedServlet {
     }
     private ClientOrdenation getOrdenation(AuthenticatedContext context) {
         String param = context.getRequest().getParameter(Constants.ORDENATION_PARAM);
+        int ordenation;
         if(param != null) {
-            int ordenation = Integer.parseInt(param);
-            boolean direction = Boolean.parseBoolean(context.getRequest().getParameter(Constants.DIRECTION_PARAM));
+            ordenation = Integer.parseInt(param);
+            boolean direction = ("1").equals(context.getRequest().getParameter(Constants.DIRECTION_PARAM))? true: false;
             return new ClientOrdenation(ClientOrdenation.ClientOrder.values()[ordenation], direction);
         }
         return null;
