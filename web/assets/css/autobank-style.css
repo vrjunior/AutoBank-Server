@@ -38,11 +38,11 @@ ul.paginator li:first-child {
 
 ul.paginator li {
     display: inline-block;
-    padding: 7px 12px;
     border-top: 1px solid rgba(0,0,0,.12);
     border-right: 1px solid rgba(0,0,0,.12);;
     border-bottom: 1px solid rgba(0,0,0,.12);
     margin: 0;
+    line-height: 32px;
 }
 
 ul.paginator li:hover {
@@ -54,6 +54,7 @@ ul.paginator li:hover {
 ul.paginator li a {
     text-decoration: none;
     color: #454545;
+    padding: 7px 12px;
 }
 
 /**** ListClient ****/
