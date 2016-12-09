@@ -81,15 +81,15 @@ public class CardRepository {
 
     public boolean informCardLost(Client client, Long cardId, String clientComment) {
         StringBuilder sqlInsertLost = new StringBuilder();
-        StringBuilder sqlDesactiveCard = new StringBuilder();
+        StringBuilder sqlDeactivateCard = new StringBuilder();
         boolean result;
 
         sqlInsertLost.append("INSERT INTO CARDS_FLAGGED_LOST_STOLEN(CARD_ID, CLIENT_COMMENT, CREATED_AT) ")
                 .append("VALUES(( SELECT ID FROM CARDS ")
                 .append("WHERE CLIENT_ID = ? ")
-                .append("AND ID = ? ), ? ) ");
+                .append("AND ID = ? ), ?, ? ) ");
 
-        sqlDesactiveCard.append("UPDATE CARDS ")
+        sqlDeactivateCard.append("UPDATE CARDS ")
                 .append("SET ACTIVE = 0 ")
                 .append("WHERE ID = ? ")
                 .append("AND CLIENT_ID = ? ");
@@ -102,21 +102,28 @@ public class CardRepository {
             ps.setLong(2, cardId);
             ps.setString(3, clientComment);
             ps.setTimestamp(4, Timestamp.from(Instant.now()));
-            ps.executeUpdate();
+            result = ps.executeUpdate() > 0;
 
-            ps = conn.prepareStatement(sqlDesactiveCard.toString());
+            ps = conn.prepareStatement(sqlDeactivateCard.toString());
             ps.setLong(1, cardId);
             ps.setLong(2, client.getId());
-            ps.executeUpdate();
+            result &= ps.executeUpdate() > 0;
 
-            this.conn.commit(); //commit if the runs is okay
-            result = true;
-        }catch(Exception e) {
+            if (result) {
+                this.conn.commit(); //commit if the runs is okay
+            } else {
+                this.conn.rollback();
+            }
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+
             try {
                 this.conn.rollback(); //if something went wrong, a rollback is executed
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
+
             result = false;
         }
         finally {

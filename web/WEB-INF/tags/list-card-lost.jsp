@@ -1,6 +1,7 @@
 <%@taglib prefix="auto" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"  %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html;charset=UTF-8" language="java"  %>
 
 <auto:admin-template>
     <jsp:body>
@@ -21,7 +22,7 @@
                         <td>${reason.id}</td>
                         <td class="mdl-data-table__cell--non-numeric">${reason.clientName}</td>
                         <td>${reason.clientCpf}</td>
-                        <td>${reason.createdAt}</td>
+                        <td><fmt:formatDate value="${reason.createdAt}" type="DATE" dateStyle="MEDIUM" /></td>
                         <td><a href="cancellation/${reason.id}">Detalhes</a></td>
                     </tr>
                 </c:forEach>

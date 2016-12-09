@@ -1,6 +1,7 @@
 <%@ taglib prefix="auto" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="autils" tagdir="/WEB-INF/tags/utils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="cons" value="us.guihouse.autobank.servlets.collaborator.Constants"/>
 <auto:admin-template>
@@ -43,6 +44,7 @@
                     <th>Email</th>
                     <th>CPF</th>
                     <th>Data de Nascimento</th>
+                    <th></th>
                 </tr>
                     <c:forEach items="${pager.records}" var="client">
                         <tr>
@@ -50,7 +52,8 @@
                             <td class="mdl-data-table__cell--non-numeric">${client.name}</td>
                             <td class="mdl-data-table__cell--non-numeric">${client.email}</td>
                             <td>${client.cpf}</td>
-                            <td>${client.birthday}</td>
+                            <td><fmt:formatDate value="${client.birthday}" type="DATE" dateStyle="MEDIUM" /></td>
+                            <td><a href="client/${client.id}">Mais detalhes</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>

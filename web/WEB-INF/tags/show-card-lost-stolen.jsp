@@ -1,5 +1,6 @@
 <%@taglib prefix="auto" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
 
 <auto:admin-template>
@@ -20,11 +21,11 @@
             </tr>
             <tr>
                 <td>Data de emissão do cartão</td>
-                <td>${reason.cardEmission}</td>
+                <td><fmt:formatDate value="${reason.cardEmission}" type="DATE" dateStyle="MEDIUM"/></td>
             </tr>
             <tr>
                 <td>Data de expiração do cartão</td>
-                <td>${reason.cardExpiration}</td>
+                <td><fmt:formatDate value="${reason.cardExpiration}" type="DATE" dateStyle="MEDIUM"/></td>
             </tr>
             <tr>
                 <td>Comentário do cliente</td>
@@ -32,7 +33,7 @@
             </tr>
             <tr>
                 <td>Aberto em</td>
-                <td>${reason.createdAt}</td>
+                <td><fmt:formatDate value="${reason.createdAt}" type="DATE" dateStyle="MEDIUM"/></td>
             </tr>
             <tr>
                 <td>

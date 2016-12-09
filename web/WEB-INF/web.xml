@@ -10,6 +10,14 @@
             <page-encoding>UTF-8</page-encoding>
         </jsp-property-group>
     </jsp-config>
+    <context-param>
+        <param-name>
+            javax.servlet.jsp.jstl.fmt.fallbackLocale
+        </param-name>
+        <param-value>
+            pt-BR
+        </param-value>
+    </context-param>
 </web-app>
 
 

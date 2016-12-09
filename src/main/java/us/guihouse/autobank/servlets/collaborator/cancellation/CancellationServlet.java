@@ -22,6 +22,12 @@ public class CancellationServlet extends AuthenticatedServlet {
     @Override
     protected void doGet(AuthenticatedContext context) throws ServletException, IOException, SQLException {
         Long id = IdParser.safeParse(context.getLastPathPart());
+
+        if (id == null) {
+            context.getResponse().sendError(404);
+            return;
+        }
+
         CardLostOrStolenRepository repo = context.getRepositoryManager().getCardLostOrStolenRepo();
         CardLostOrStolen reason = repo.getReasonById(id);
 
@@ -39,6 +45,11 @@ public class CancellationServlet extends AuthenticatedServlet {
     protected void doPost(AuthenticatedContext context) throws ServletException, IOException, SQLException {
         String accepted = context.getBodyParam("accepted");
         Long id = IdParser.safeParse(context.getLastPathPart());
+
+        if (id == null) {
+            context.getResponse().sendError(404);
+            return;
+        }
 
         CardLostOrStolenRepository repo = context.getRepositoryManager().getCardLostOrStolenRepo();
         CardRepository cardRepo = context.getRepositoryManager().getCardRepository();

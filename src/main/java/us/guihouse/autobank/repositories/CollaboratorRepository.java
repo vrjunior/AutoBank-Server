@@ -82,6 +82,27 @@ public class CollaboratorRepository {
         return collaborator;
     }
 
+    public Client getClientById(Long id) throws SQLException {
+        Client client = null;
+
+        PreparedStatement statement = this.conn
+                .prepareStatement("SELECT ID, NAME, EMAIL, CPF, BIRTHDAY FROM CLIENTS WHERE ID = ?");
+
+        statement.setLong(1, id);
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next()) {
+            client = new Client();
+            client.setId(rs.getLong("ID"));
+            client.setName(rs.getString("NAME"));
+            client.setEmail(rs.getString("EMAIL"));
+            client.setCpf(rs.getString("CPF"));
+            client.setBirthday(rs.getDate("BIRTHDAY"));
+        }
+
+        return client;
+    }
+
     public void getClients(String search, ClientOrdenation clientOrdenation, Pager<Client> pager) throws SQLException {
         StringBuilder selectClient = new StringBuilder();
         ArrayList<Client> clients = new ArrayList<>();
