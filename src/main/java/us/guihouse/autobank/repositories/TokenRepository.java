@@ -7,7 +7,10 @@ import java.sql.*;
 import java.util.Base64;
 
 /**
+ * Classe responsável por criar o tokens e gerenciar tokens de usários logados no mobile
  * Created by vrjunior on 15/10/16.
+ * @author Guilherme Otranto
+ * @author Valmir Massonir Jr.
  */
 public class TokenRepository {
     private Connection conn;
@@ -16,6 +19,10 @@ public class TokenRepository {
         this.conn = conn;
     }
 
+    /**
+     * Gera uma string aletória base 64
+     * @return string randômica base 64
+     */
     private String generateTokenString(){
         SecureRandom random = new SecureRandom();
         byte bytes[] = new byte[64];
@@ -25,6 +32,11 @@ public class TokenRepository {
         return encoder.encodeToString(bytes);
     }
 
+    /**
+     * Cria um token e persiste no banco associando-o ao cliente.
+     * @param clientId id do cliente
+     * @return objeto Token contendo o token em si, id do token e data de criação.
+     */
     public Token createToken(Long clientId) {
         Token tokenResult = new Token();
         Long id = null;

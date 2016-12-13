@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 
 /**
+ * Context genério das classes, para reutilizar a conexão com o banco, repositoryManager e session.
  * Created by guilherme on 05/12/16.
  */
 public interface Context {
@@ -19,8 +20,17 @@ public interface Context {
     Connection getConnection();
     HttpSession getSession();
     RepositoryManager getRepositoryManager();
+    /**
+     * Redireciona para outra url.
+     */
     void forward(String destination) throws ServletException, IOException;
+    /**
+     * Redireciona para outra url enviando parâmetros via GET.
+     */
     void forward(String destination, HashMap<String, Object> params) throws ServletException, IOException;
+    /**
+     * Rejeita a request, chama a class super da servlet e mostra mensagem de verbo http não suportado.
+     */
     void rejectMethod();
     String getLastPathPart();
     String getBodyParam(String param);

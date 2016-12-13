@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * Contexto generico com os métodos de database implementados.
  * Created by guilherme on 05/12/16.
  */
 public class DatabaseContext implements Context {
