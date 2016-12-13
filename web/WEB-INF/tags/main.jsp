@@ -3,7 +3,7 @@
 
 <auto:admin-template>
     <jsp:body>
-        <h1>hu3 hu3 guilherme ruby fanboy</h1>
+        <h1>Bem vindo</h1>
     </jsp:body>
 </auto:admin-template>
 
